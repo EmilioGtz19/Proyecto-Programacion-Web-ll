@@ -1,22 +1,46 @@
 import React from "react";
-import logo from './logo.svg';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
 import './App.css';
 
 function App() {
-  const [data, setData] = React.useState(null);
+  const [email, setEmail] = React.useState("")
+  const [pass, setPass] = React.useState("")
 
-  React.useEffect(() => {
-    fetch("/api")
-      .then((response) => response.json())
-      .then((data) => setData(data.message));
-  }, []);
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    fetch("http://localhost:3001/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email: email, pass: pass }),
+    })
+      .then((res) => res.json())
+      .then((data) => console.log(data))
+      .catch((err) => console.log(err));
+  };
 
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>{!data ? "Loading..." : data}</p>
-      </header>
+
+      <Form onSubmit={handleSubmit}>
+
+      <Form.Group className="mb-3" controlId="formBasicEmail">
+        <Form.Label>Email</Form.Label>
+        <Form.Control type="email" placeholder="Enter email" value={email} onChange={(e)=>{setEmail(e.target.value)}}/>
+      </Form.Group>
+
+      <Form.Group className="mb-3" controlId="formBasicPassword">
+        <Form.Label>Password</Form.Label>
+        <Form.Control type="password" placeholder="Password" value={pass} onChange={(e)=>{setPass(e.target.value)}}/>
+      </Form.Group>
+      
+      <Button variant="primary" type="submit">
+        Submit
+      </Button>
+      
+    </Form>
+
     </div>
   );
 }
