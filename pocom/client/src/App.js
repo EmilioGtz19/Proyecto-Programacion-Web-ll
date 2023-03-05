@@ -22,15 +22,9 @@ function App() {
 
   return (
 
-    <body style={
-    {display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    height: '100vh',
-  backgroundColor: 'rgb(175, 32, 22)'}
-    }>
+    <div className="divLogin">
 
-    <div style={{width: 450}} className="App bg-white p-5 rounded-5 text-success shadow-lg" div>
+    <div style={{width: 450}} className="App bg-white p-5 rounded-5 text-success shadow-lg">
 
       <Form onSubmit={handleSubmit}>
 
@@ -54,7 +48,7 @@ function App() {
 
     </div>
 
-    </body>
+    </div>
   );
 }
 

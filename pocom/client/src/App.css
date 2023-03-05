@@ -36,3 +36,11 @@
     transform: rotate(360deg);
   }
 }
+
+.divLogin {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: rgb(175, 32, 22)
+}
