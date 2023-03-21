@@ -10,27 +10,35 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       first_name: {
+        allowNull: false,
         type: Sequelize.STRING
       },
       last_name: {
+        allowNull: false,
         type: Sequelize.STRING
       },
       mother_last_name: {
+        allowNull: false,
         type: Sequelize.STRING
       },
       email: {
-        type: Sequelize.STRING
+        allowNull: false,
+        type: Sequelize.STRING,
+        unique: true
       },
       password: {
+        allowNull: false,
         type: Sequelize.STRING
       },
       user_photo: {
         type: Sequelize.STRING
       },
       status: {
+        allowNull: false,
         type: Sequelize.TINYINT
       },
       user_type_id: {
+        allowNull: false,
         type: Sequelize.INTEGER,
         references: {
           model: 'user_type',

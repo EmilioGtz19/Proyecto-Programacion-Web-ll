@@ -10,9 +10,11 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       user_type_description: {
+        allowNull: false,
         type: Sequelize.STRING
       },
       status: {
+        allowNull: false,
         type: Sequelize.TINYINT
       },
       createdAt: {
