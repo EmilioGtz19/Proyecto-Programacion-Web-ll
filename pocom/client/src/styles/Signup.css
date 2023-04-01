@@ -3,9 +3,8 @@
     align-items: center;
     justify-content: center;
     height: 100vh;
-    background-color: rgb(175, 32, 22);
-    margin-top: 100px;
-    margin-bottom: 100px;
+    background-color: rgb(175, 32, 22) !important;
+    height: 100%;
 }
 
 .imageDimensions{
@@ -18,8 +17,4 @@
     border-radius: 5px;
     width: 155px;
     height: 155px;
-}
-
-body{
-    background-color: rgb(175, 32, 22);
 }
