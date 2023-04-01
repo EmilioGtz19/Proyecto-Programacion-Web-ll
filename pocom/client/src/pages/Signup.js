@@ -8,7 +8,6 @@ import '../styles/Signup.css';
 const Signup = () => { 
 
     const [selectedImage, setSelectedImage] = useState();
-
     const [firstName, setFirstName] = useState('');
     const [fatherLastName, setFatherLastName] = useState('');
     const [motherLastName, setMotherLastName] = useState('');
@@ -43,12 +42,27 @@ const Signup = () => {
             && email && password && confirmPassword 
             && selectedImage)
             {
-                alert('Los campos están completos c:')
+                fetch("http://localhost:3001/api/user/create", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ first_name: firstName, 
+                        last_name: fatherLastName, 
+                        mother_last_name: motherLastName, 
+                        email: email, 
+                        password: password, 
+                        user_photo: "photo.jpg",
+                        status: 1,
+                        user_type_id: 1
+                     }),
+                  })
+                    .then((res) => res.json())
+                    .then((data) => console.log(data))
+                    .catch((err) => console.log(err));
             }
     }
     
     return (
-      <form className="divSignup" onSubmit={handleSubmit}>
+      <Form className="divSignup" onSubmit={handleSubmit}>
         <div style={{width: 1000}} className="bg-white p-5 rounded-5 text-success shadow-lg text-center">
 
             <h1 className="mb-3">Registro</h1>
@@ -120,7 +134,7 @@ const Signup = () => {
                 Registrar
             </Button>
         </div>
-      </form>
+      </Form>
     );
   }
   
