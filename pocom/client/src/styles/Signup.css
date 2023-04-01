@@ -1,9 +1,13 @@
+body{
+    background-image: url("../images/pocomSignup.png");
+    background-size: cover;
+}
+
 .divSignup{
     display: flex;
     align-items: center;
     justify-content: center;
     height: 100vh;
-    background-color: rgb(175, 32, 22) !important;
 }
 
 .imageDimensions{
