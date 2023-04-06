@@ -63,7 +63,7 @@ const Signup = () => {
                         mother_last_name: motherLastName,
                         email: email,
                         password: password,
-                        user_photo: String(file.secure_url),
+                        user_photo: file.secure_url,
                         status: 1,
                         user_type_id: 1
                     }),
