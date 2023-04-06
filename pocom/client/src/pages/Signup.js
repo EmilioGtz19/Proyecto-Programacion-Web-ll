@@ -17,6 +17,7 @@ const Signup = () => {
     const [confirmPassword, setConfirmPassword] = useState('');
     const [error, setError] = useState(false);
     const [emptyImage, setEmptyImage] = useState(false);
+    const [samePasswords, setSamePasswords] = useState(true);
 
     // This function will be triggered when the file field change
     const imageChange = async (e) => {
@@ -36,11 +37,19 @@ const Signup = () => {
         if (!selectedImage) {
             setEmptyImage(true);
         }
+        if(password !== confirmPassword){
+            setSamePasswords(false);
+        }
+        else{
+            setSamePasswords(true);
+        }
 
         if (firstName && fatherLastName && motherLastName
             && email && password && confirmPassword
-            && selectedImage) {
+            && selectedImage && (password === confirmPassword)) {
 
+                //swalAlert("Success", "campos completos xd", "success");
+                
             try {
 
                 const data = new FormData();
@@ -162,6 +171,8 @@ const Signup = () => {
                             <Form.Label className="col-6 text-danger">La contraseña no puede estar vacía</Form.Label> : ""}
                         {error && confirmPassword.length <= 0 ?
                             <Form.Label className="col-6 text-danger">La contraseña confirmada no puede estar vacía</Form.Label> : ""}
+                        {!samePasswords ?
+                            <Form.Label className="col-12 text-danger">Las contraseñas deben ser iguales</Form.Label> : ""}
                     </Form.Group>
                 </div>
 
