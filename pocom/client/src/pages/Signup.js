@@ -47,21 +47,8 @@ const Signup = () => {
         if (firstName && fatherLastName && motherLastName
             && email && password && confirmPassword
             && selectedImage && (password === confirmPassword)) {
-
-                //swalAlert("Success", "campos completos xd", "success");
                 
             try {
-
-                const data = new FormData();
-                data.append("file", selectedImage)
-                data.append("upload_preset", "vy7khmyb")
-
-                const responseImage = await fetch("https://api.cloudinary.com/v1_1/dbghuik1d/image/upload", {
-                    method: "POST",
-                    body: data,
-                })
-
-                const file = await responseImage.json();
 
                 const response = await fetch("http://localhost:3001/api/user/create", {
                     method: "POST",
@@ -72,20 +59,39 @@ const Signup = () => {
                         mother_last_name: motherLastName,
                         email: email,
                         password: password,
-                        user_photo: file.secure_url,
+                        user_photo: null,
                         status: 1,
                         user_type_id: 1
                     }),
                 })
 
                 if (response.ok) {
+                    const dataResponse = await response.json();
+                    const data = new FormData();
+                    data.append("file", selectedImage)
+                    data.append("upload_preset", "vy7khmyb")
+
+                    const responseImage = await fetch("https://api.cloudinary.com/v1_1/dbghuik1d/image/upload", {
+                        method: "POST",
+                        body: data,
+                    })
+
+                    const file = await responseImage.json();
+
+                    await fetch(`http://localhost:3001/api/user/update/${dataResponse.id}`, {
+                        method: "PUT",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({
+                            user_photo: file.secure_url,
+                        }),
+                    });
+
                     swalAlert("Usuario creado", "El usuario se ha creado satisfactoriamente.", "success")
                         .then(() => {
                             window.location.href = "/login";
                         });
                 } else {
-                    const data = await response.json();
-                    switch (data.name) {
+                    switch (response.name) {
                         case "SequelizeUniqueConstraintError":
                             swalAlert("Error", "El correo ya se encuentra registrado.", "error");
                             break;
@@ -114,7 +120,7 @@ const Signup = () => {
                 <div className="d-flex justify-content-center">
                     <div className=" borderPicture">
                         {selectedImage && (
-                            <img src={URL.createObjectURL(selectedImage)} className="imageDimensions" alt="User"/>
+                            <img src={URL.createObjectURL(selectedImage)} className="imageDimensions" alt="User" />
                         )}
                     </div>
                 </div>
