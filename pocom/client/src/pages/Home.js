@@ -10,6 +10,16 @@ const Home = () => {
   const [likeActive, setLikeActive] = useState(false)
   const [dislikeActive, setDislikeActive] = useState(false)
 
+  const [comment, setComment] = useState("")
+  const [comments, setComments] = useState([])
+
+  const onClickHandler = (e) => {
+    setComments((comments) => [...comments, comment])
+  }
+  const onChangeHandler = (e) => {
+    setComment(e.target.value)
+  }
+
   function likeFunction(){
     if(likeActive){
       setLikeActive(false)
@@ -46,14 +56,14 @@ const Home = () => {
       <div>
         <nav class="navbar bg-body-tertiary bg-white">
           <div class="container-fluid">
-            <a class="navbar-brand" href="#">Pocom</a>
+            <a class="navbar-brand" href="/">Pocom</a>
             <form class="d-flex" role="search">
               <input className="inputTextLarge" type="text"></input>
               <button className="navLeftMargin btn btn-success">Search</button>
             </form>
             <div>
-              <button className="btn btn-primary">Login</button>
-              <button className="navLeftMargin btn btn-success">Profile</button>
+              <a className="btn btn-primary" href="/login">Login</a>
+              <a className="navLeftMargin btn btn-success" href="/profile">Profile</a>
             </div>
           </div>
         </nav>
@@ -85,10 +95,21 @@ const Home = () => {
               <p>comments number</p>
             </div>
 
-            <div className="leftMargin">
-              <p>make a comment</p>
-              <input className="inputTextLarge mb-2" type="text"></input>
+            <div className="mt-3 main-container">
+              <div className="comment-flexbox">
+                <h3 className="comment-text">Comment</h3>
+                <textarea
+                  value={comment}
+                  onChange={onChangeHandler}
+                  className="input-box"
+                />
+                <button onClick={onClickHandler} className="comment-button">Submit</button>
+              </div>
             </div>
+
+            {comments.map((text) => (
+                <div className="comment-container leftMargin">{text}</div>
+            ))}
           </div>
         </div>
       </div>

@@ -45,6 +45,21 @@ const Profile = () => {
     };
 
     return(
+<div>
+        <nav class="navbar bg-body-tertiary bg-white">
+          <div class="container-fluid">
+            <a class="navbar-brand" href="/">Pocom</a>
+            <form class="d-flex" role="search">
+              <input className="inputTextLarge" type="text"></input>
+              <button className="navLeftMargin btn btn-success">Search</button>
+            </form>
+            <div>
+              <a className="btn btn-primary" href="/login">Login</a>
+              <a className="navLeftMargin btn btn-success" href="/profile">Profile</a>
+            </div>
+          </div>
+        </nav>
+
     <div className="divProfile">
     
         <div style={{width: 550}} className="App bg-white p-5 rounded-5 text-success shadow-lg">
@@ -109,6 +124,7 @@ const Profile = () => {
         </div>
     
     </div>
+</div>
     );
 
 }
