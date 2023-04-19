@@ -33,11 +33,15 @@ module.exports = {
             })
 
             if (foundUser && bcrypt.compareSync(password, foundUser.password)) {
+
+                const { id, first_name, user_photo } = foundUser
+
+                request.session.user = { id, first_name, user_photo }
+
                 return response.status(200).json({
                     message: 'Logged in successfully'
                 });
-            }
-            else {
+            } else {
                 return response.status(401).json({
                     message: 'Invalid credentials'
                 });
@@ -85,5 +89,55 @@ module.exports = {
                 error: error.message
             })
         }
+    },
+
+    async getUser(request, response) {
+        try {
+            const { id } = request.params;
+
+            const foundUser = await user.findOne({
+                where: {
+                    id: id
+                },
+                attributes: [
+                    'id',
+                    'first_name',
+                    'last_name',
+                    'mother_last_name',
+                    'email',
+                    'password',
+                    'user_photo'
+                ]
+            })
+
+            if (!foundUser) {
+                return response.status(404).json({
+                    message: 'User not found'
+                });
+            }
+
+            return response.status(200).json({
+                user: foundUser
+            });
+
+        } catch (error) {
+            return response.status(400).json({
+                message: 'Error getting user',
+                error: error.message
+            })
+        }
+    },
+
+    async getSession(request, response) {
+        if (request.session.user) {
+            response.send({ loggedIn: true, user: request.session.user })
+        } else {
+            response.send({ loggedIn: false });
+        }
+    },
+
+    async destroySession(request, response) {
+        request.session.destroy();
+        response.send({ loggedIn: false })
     }
 }
