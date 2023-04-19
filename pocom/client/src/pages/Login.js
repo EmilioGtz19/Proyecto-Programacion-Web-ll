@@ -5,7 +5,10 @@ import Form from 'react-bootstrap/Form';
 import '../styles/Login.css';
 import { swalAlert } from '../utils/alerts';
 
+const apiUrl = process.env.REACT_APP_API_URL;
+
 function Login() {
+
     const [email, setEmail] = React.useState("")
     const [pass, setPass] = React.useState("")
   
@@ -25,7 +28,7 @@ function Login() {
     async function login(){
       try{
         
-        const response = await fetch("http://localhost:3001/api/user/login", {
+        const response = await fetch(`${apiUrl}/api/user/login`, {
           method: "POST",
           credentials : "include",
           headers: { "Content-Type": "application/json" },

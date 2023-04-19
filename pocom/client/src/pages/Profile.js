@@ -4,6 +4,8 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import '../styles/Profile.css';
 
+const apiUrl = process.env.REACT_APP_API_URL;
+
 const Profile = () => {
 
     const [selectedImage, setSelectedImage] = useState();
@@ -16,7 +18,7 @@ const Profile = () => {
     const [samePasswords, setSamePasswords] = useState(true);
 
     useEffect(() => {
-        fetch('http://localhost:3001/api/user/getSession', {
+        fetch(`${apiUrl}/api/user/getSession`, {
             method: 'GET',
             credentials: 'include',
         })
