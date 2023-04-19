@@ -2,7 +2,7 @@ import React from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const Home = () => { 
-    return (
+  return (
       <div>
         <p>HOME</p>
       </div>

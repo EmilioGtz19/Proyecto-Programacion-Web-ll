@@ -10,6 +10,7 @@ function App() {
     <BrowserRouter>
       <Routes>  
         <Route exact path="/" Component={Home}/>
+        <Route exact path="/home" Component={Home}/>
         <Route exact path="/login" Component={Login}/>
         <Route exact path="/signup" Component={Signup}/>
         <Route exact path="/profile" Component={Profile}/>

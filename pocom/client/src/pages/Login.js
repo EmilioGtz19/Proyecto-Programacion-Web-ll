@@ -3,22 +3,41 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import '../styles/Login.css';
+import { swalAlert } from '../utils/alerts';
 
 function Login() {
     const [email, setEmail] = React.useState("")
     const [pass, setPass] = React.useState("")
   
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
       e.preventDefault();
-      fetch("http://localhost:3001/api/user/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email: email, password: pass }),
-      })
-        .then((res) => res.json())
-        .then((data) => console.log(data))
-        .catch((err) => console.log(err));
+      
+      const responseLogin = await login();
+
+      if(responseLogin.ok){
+        window.location.href = "/home";
+      } else{
+        swalAlert("Error","Error al ingresar las credenciales","error")
+      }
+
     };
+
+    async function login(){
+      try{
+        
+        const response = await fetch("http://localhost:3001/api/user/login", {
+          method: "POST",
+          credentials : "include",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email: email, password: pass })
+        })
+
+        return response;
+
+      }catch(error){
+        console.log(error)
+      }
+    }
   
     return (
   
