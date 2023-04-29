@@ -1,6 +1,5 @@
 import React from "react";
 import { isAuthenticated } from "../utils/auth";
-import Login from "../pages/Login";
 import { swalAlert } from '../utils/alerts';
 
 const withAuth = (Component) => {
