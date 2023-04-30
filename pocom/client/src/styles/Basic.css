@@ -1,0 +1,32 @@
+.white-text {
+  color: azure;
+  font-size: 16px;
+}
+
+.big-text {
+  font-size: 24px;
+}
+
+.small-text {
+  font-size: 12px;
+}
+
+.no-top-margin {
+  margin-top: 0%;
+}
+
+.no-top-padding {
+  padding-top: 0%;
+}
+
+.horizontal-spacing {
+  margin: 0px 7px;
+}
+
+.horizontal-spacing-r {
+  margin: 0px 7px 0px 0px;
+}
+
+.top-margin {
+  margin-top: 2%;
+}

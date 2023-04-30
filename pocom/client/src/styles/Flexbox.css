@@ -1,0 +1,23 @@
+/* Modificaciones que van a afectar los valores flex */
+
+.flex-container {
+  display: flex;
+  justify-content: center;
+}
+
+.flex-column {
+  flex-direction: column;
+}
+
+.flex-content-start {
+  justify-content: start;
+}
+.flex-content-end {
+  justify-content: end;
+}
+.gap {
+  gap: 1em;
+}
+.center {
+  align-items: center;
+}

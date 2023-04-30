@@ -1,0 +1,35 @@
+/* Modificaciones exclusivas para los posts */
+
+.post-container {
+  background-color: rgba(49, 52, 54, 0.8);
+  width: 50%;
+  border-radius: 5px;
+  padding: 2%;
+}
+
+.post-Userimg {
+  border-radius: 50%;
+  height: 30px;
+}
+
+.post-Image {
+  aspect-ratio: auto;
+  max-width: 100%;
+  height: auto;
+
+  padding: 2px;
+  margin: 1%;
+}
+
+button {
+  border-radius: 20px;
+  padding: 2px 2%;
+  background-color: rgb(38, 41, 44);
+  border-color: rgb(27, 176, 115);
+}
+
+button:hover {
+  background-color: rgb(27, 176, 115);
+  color: black;
+  border-color: rgb(38, 41, 44);
+}
