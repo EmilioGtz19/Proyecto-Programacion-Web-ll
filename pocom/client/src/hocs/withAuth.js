@@ -21,7 +21,9 @@ const withAuth = (Component) => {
     if (isAuthenticatedValue) {
       return <Component {...props} />;
     } else {
-      swalAlert("Error", "Debe iniciar sesión para acceder a esta página", "error")
+      swalAlert("Error", "Debe iniciar sesión para acceder a esta página", "error").then(() => {
+        window.location.href = '/login';
+      })
     }
   };
   return AuthRoute;
