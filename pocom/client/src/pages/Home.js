@@ -3,7 +3,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import '../styles/Home.css';
 
 const Home = () => { 
-
   const [like, setLike] = useState(100)
   const [dislike, setDislike] = useState(4)
 

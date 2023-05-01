@@ -6,6 +6,9 @@ import Button from 'react-bootstrap/Button';
 import { swalAlert } from "../utils/alerts";
 import '../styles/Signup.css';
 
+const apiUrl = process.env.REACT_APP_API_URL;
+const apiImage = process.env.REACT_APP_API_IMAGES_URL;
+
 const Signup = () => {
 
     const [selectedImage, setSelectedImage] = useState();
@@ -50,7 +53,7 @@ const Signup = () => {
                 
             try {
 
-                const response = await fetch("http://localhost:3001/api/user/create", {
+                const response = await fetch(`${apiUrl}/api/user/create`, {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({
@@ -71,14 +74,14 @@ const Signup = () => {
                     data.append("file", selectedImage)
                     data.append("upload_preset", "vy7khmyb")
 
-                    const responseImage = await fetch("https://api.cloudinary.com/v1_1/dbghuik1d/image/upload", {
+                    const responseImage = await fetch(`${apiImage}/image/upload`, {
                         method: "POST",
                         body: data,
                     })
 
                     const file = await responseImage.json();
 
-                    await fetch(`http://localhost:3001/api/user/update/${dataResponse.id}`, {
+                    await fetch(`${apiUrl}/api/user/update/${dataResponse.id}`, {
                         method: "PUT",
                         headers: { "Content-Type": "application/json" },
                         body: JSON.stringify({
