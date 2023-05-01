@@ -2,7 +2,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 100vh;
+    height: 175vh;
     background-image: url("../images/pocomSignup.png");
     background-size: cover;
 }

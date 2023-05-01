@@ -60,21 +60,35 @@ const Profile = () => {
         }
     };
 
-    return (
-        <div className="divProfile">
+    return(
+<div>
+        <nav class="navbar bg-body-tertiary bg-white">
+          <div class="container-fluid">
+            <a class="navbar-brand" href="/">Pocom</a>
+            <form class="d-flex" role="search">
+              <input className="inputTextLarge" type="text"></input>
+              <button className="navLeftMargin btn btn-success">Search</button>
+            </form>
+            <div>
+              <a className="btn btn-primary" href="/login">Login</a>
+              <a className="navLeftMargin btn btn-success" href="/profile">Profile</a>
+            </div>
+          </div>
+        </nav>
 
-            <div style={{ width: 550 }} className="App bg-white p-5 rounded-5 text-success shadow-lg">
+    <div className="divProfile">
+    
+        <div style={{width: 550}} className="App bg-white p-5 rounded-5 text-success shadow-lg">
+    
+            <Form onSubmit={handleSubmit}>
+        
+                <h1 className="mb-3">Actualizar Perfil</h1>
 
-                <Form onSubmit={handleSubmit}>
-
-                    <h1 className="mb-3">Actualizar Perfil</h1>
-
-                    <div className="d-flex justify-content-center">
-                        <div className=" borderPicture">
-                            {selectedImage && (
-                                <img src={URL.createObjectURL(selectedImage)} className="imageDimensions" alt="User" />
-                            )}
-                        </div>
+                <div className="d-flex justify-content-center">
+                    <div className=" borderPicture">
+                        {selectedImage && (
+                            <img src={URL.createObjectURL(selectedImage)} className="imageDimensions" alt="User" />
+                        )}
                     </div>
 
                     <input type="file" className="form-control mt-3" accept="image/*" onChange={imageChange} />
@@ -125,6 +139,9 @@ const Profile = () => {
             </div>
 
         </div>
+
+    </div>
+</div>
     );
 
 }
