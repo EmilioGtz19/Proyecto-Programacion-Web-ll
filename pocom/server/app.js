@@ -4,6 +4,7 @@ const cookieParser = require("cookie-parser");
 const cors = require('cors')
 const bodyParser = require("body-parser");
 const userRoutes = require('./routes/user_routes');
+const communityRoutes = require('./routes/community_routes');
 const app = express()
 const PORT = process.env.PORT || 3001
 
@@ -32,6 +33,7 @@ app.use(session({
 }))
 
 app.use('/api', userRoutes);
+app.use('/api', communityRoutes)
 
 app.listen(PORT, ()=> {
     console.log(`Server listening on ${PORT}`)
