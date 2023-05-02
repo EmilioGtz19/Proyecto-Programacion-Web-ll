@@ -33,3 +33,15 @@ button:hover {
   color: black;
   border-color: rgb(38, 41, 44);
 }
+
+#CreadorDePosts > input[type="text"] {
+  flex-grow: 1;
+  border: 1px solid rgb(32, 33, 34);
+  border-radius: 25px 0px 0px 25px;
+  padding: 0px 10px;
+}
+#CreadorDePosts > button {
+  border: 1px solid rgb(27, 176, 115);
+  border-radius: 0px 25px 25px 0px;
+  padding: 0px 10px;
+}

@@ -1,3 +1,4 @@
+/*font*/
 .white-text {
   color: azure;
   font-size: 16px;
@@ -11,13 +12,40 @@
   font-size: 12px;
 }
 
+.bold-text {
+  font-weight: bold;
+}
+
+/*Margin*/
 .no-top-margin {
   margin-top: 0%;
 }
 
-.no-top-padding {
-  padding-top: 0%;
+.top-margin {
+  margin-top: 2%;
 }
+
+.y-margin {
+  margin-top: 2%;
+  margin-bottom: 2%;
+}
+
+.x-margin {
+  margin-right: 2%;
+  margin-left: 2%;
+}
+
+/*Padding*/
+
+.no-top-padding {
+  padding-top: 0px;
+}
+.y-padding {
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+/*Spacing*/
 
 .horizontal-spacing {
   margin: 0px 7px;
@@ -27,6 +55,15 @@
   margin: 0px 7px 0px 0px;
 }
 
-.top-margin {
-  margin-top: 2%;
+/*height*/
+.full-height {
+  height: 100%;
+}
+
+/*width*/
+.full-width {
+  width: 100%;
+}
+.half-width {
+  width: 50%;
 }
