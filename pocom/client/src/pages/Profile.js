@@ -3,6 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import '../styles/Profile.css';
+import Modal from "./Modal";
 
 const apiUrl = process.env.REACT_APP_API_URL;
 
@@ -15,7 +16,8 @@ const Profile = () => {
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [error, setError] = useState(false);
-    const [samePasswords, setSamePasswords] = useState(true);
+    //const [samePasswords, setSamePasswords] = useState(true);
+    const [isOpen, setIsOpen] = useState(false)
 
     useEffect(() => {
         fetch(`${apiUrl}/api/user/getSession`, {
@@ -35,21 +37,12 @@ const Profile = () => {
         e.preventDefault();
 
         if (firstName.length === 0 || fatherLastName.length === 0
-            || motherLastName.length === 0 || password.length === 0
-            || confirmPassword.length === 0) {
+            || motherLastName.length === 0) {
             setError(true);
-        }
-        if (password !== confirmPassword) {
-            setSamePasswords(false);
-        }
-        else {
-            setSamePasswords(true);
         }
 
         // nota: no valido la imagen vacía porque como es modificar usuario ya debería de tener una
-        if (firstName && fatherLastName && motherLastName
-            && password && confirmPassword
-            && (password === confirmPassword)) {
+        if (firstName && fatherLastName && motherLastName) {
             alert('Todo correcto')
         }
     }
@@ -90,35 +83,42 @@ const Profile = () => {
                         <Form.Label className="fw-semibold">Apellido Paterno</Form.Label>
                         <Form.Control className="shadow-sm border border-success border-2" type="text" onChange={e => setFatherLastName(e.target.value)} />
                         {error && fatherLastName.length <= 0 ?
-                            <Form.Label className="col-6 text-danger">El nombre no puede estar vacío</Form.Label> : ""}
+                            <Form.Label className="col-6 text-danger">El apellido paterno no puede estar vacío</Form.Label> : ""}
                     </Form.Group>
 
                     <Form.Group className="mb-3">
                         <Form.Label className="fw-semibold">Apellido Materno</Form.Label>
                         <Form.Control className="shadow-sm border border-success border-2" type="text" onChange={e => setMotherLastName(e.target.value)} />
                         {error && motherLastName.length <= 0 ?
-                            <Form.Label className="col-6 text-danger">El nombre no puede estar vacío</Form.Label> : ""}
+                            <Form.Label className="col-6 text-danger">El apellido materno no puede estar vacío</Form.Label> : ""}
                     </Form.Group>
 
-                    <Form.Group className="mb-3">
+                    {/* <Form.Group className="mb-3">
                         <Form.Label className="fw-semibold">Contraseña</Form.Label>
                         <Form.Control className="shadow-sm border border-success border-2" type="password" onChange={e => setPassword(e.target.value)} />
                         {error && password.length <= 0 ?
-                            <Form.Label className="col-6 text-danger">El nombre no puede estar vacío</Form.Label> : ""}
+                            <Form.Label className="col-6 text-danger">La contraseña no puede estar vacía</Form.Label> : ""}
                     </Form.Group>
 
                     <Form.Group className="mb-3">
                         <Form.Label className="fw-semibold">Confirmar Contraseña</Form.Label>
                         <Form.Control className="shadow-sm border border-success border-2" type="password" onChange={e => setConfirmPassword(e.target.value)} />
                         {error && confirmPassword.length <= 0 ?
-                            <Form.Label className="col-6 text-danger">El nombre no puede estar vacío</Form.Label> : ""}
+                            <Form.Label className="col-6 text-danger">El confirmar contraseña no puede estar vacío</Form.Label> : ""}
                         {!samePasswords ?
                             <Form.Label className="col-12 text-danger">Las contraseñas deben ser iguales</Form.Label> : ""}
-                    </Form.Group>
+                    </Form.Group> */}
 
-                    <Button className="mt-3 shadow-sm" variant="success" type="submit">
-                        Guardar
-                    </Button>
+                    <div className=" d-flex justify-content-center gap-5">
+                        <Button className="mt-3 shadow-sm" variant="success" type="submit">
+                            Guardar
+                        </Button>
+                        <Button onClick={() => setIsOpen(true)} className="mt-3 shadow-sm" variant="primary" type="submit">
+                            Cambiar contraseña
+                        </Button>
+                            <Modal open={isOpen} onClose={() => setIsOpen(false)}></Modal>
+                    </div>
+                    
 
                 </Form>
 
