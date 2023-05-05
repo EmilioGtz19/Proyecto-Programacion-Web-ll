@@ -4,6 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import '../styles/Profile.css';
+import Modal from "./Modal";
 import { swalAlert } from "../utils/alerts";
 
 const apiUrl = process.env.REACT_APP_API_URL;
@@ -17,6 +18,7 @@ const Profile = (props) => {
     const [fatherLastName, setFatherLastName] = useState('');
     const [motherLastName, setMotherLastName] = useState('');
     const [error, setError] = useState(false);
+    const [isOpen, setIsOpen] = useState(false)
 
 
     useEffect(() => {
@@ -149,6 +151,60 @@ const Profile = (props) => {
                                 )}
                             </div>
                         </div>
+
+                    </div>
+
+                    <input type="file" className="form-control mt-3" accept="image/*" onChange={imageChange} />
+
+                    <Form.Group className="mb-3 mt-3">
+                        <Form.Label className="fw-semibold">Nombre</Form.Label>
+                        <Form.Control className="shadow-sm border border-success border-2" type="text" onChange={e => setFirstName(e.target.value)} />
+                        {error && firstName.length <= 0 ?
+                            <Form.Label className="col-6 text-danger">El nombre no puede estar vacío</Form.Label> : ""}
+                    </Form.Group>
+
+                    <Form.Group className="mb-3">
+                        <Form.Label className="fw-semibold">Apellido Paterno</Form.Label>
+                        <Form.Control className="shadow-sm border border-success border-2" type="text" onChange={e => setFatherLastName(e.target.value)} />
+                        {error && fatherLastName.length <= 0 ?
+                            <Form.Label className="col-6 text-danger">El apellido paterno no puede estar vacío</Form.Label> : ""}
+                    </Form.Group>
+
+                    <Form.Group className="mb-3">
+                        <Form.Label className="fw-semibold">Apellido Materno</Form.Label>
+                        <Form.Control className="shadow-sm border border-success border-2" type="text" onChange={e => setMotherLastName(e.target.value)} />
+                        {error && motherLastName.length <= 0 ?
+                            <Form.Label className="col-6 text-danger">El apellido materno no puede estar vacío</Form.Label> : ""}
+                    </Form.Group>
+
+                    {/* <Form.Group className="mb-3">
+                        <Form.Label className="fw-semibold">Contraseña</Form.Label>
+                        <Form.Control className="shadow-sm border border-success border-2" type="password" onChange={e => setPassword(e.target.value)} />
+                        {error && password.length <= 0 ?
+                            <Form.Label className="col-6 text-danger">La contraseña no puede estar vacía</Form.Label> : ""}
+                    </Form.Group>
+
+                    <Form.Group className="mb-3">
+                        <Form.Label className="fw-semibold">Confirmar Contraseña</Form.Label>
+                        <Form.Control className="shadow-sm border border-success border-2" type="password" onChange={e => setConfirmPassword(e.target.value)} />
+                        {error && confirmPassword.length <= 0 ?
+                            <Form.Label className="col-6 text-danger">El confirmar contraseña no puede estar vacío</Form.Label> : ""}
+                        {!samePasswords ?
+                            <Form.Label className="col-12 text-danger">Las contraseñas deben ser iguales</Form.Label> : ""}
+                    </Form.Group> */}
+
+                    <div className=" d-flex justify-content-center gap-5">
+                        <Button className="mt-3 shadow-sm" variant="success" type="submit">
+                            Guardar
+                        </Button>
+                        <Button onClick={() => setIsOpen(true)} className="mt-3 shadow-sm" variant="primary" type="submit">
+                            Cambiar contraseña
+                        </Button>
+                            <Modal open={isOpen} onClose={() => setIsOpen(false)}></Modal>
+                    </div>
+                    
+
+                </Form>
 
                         <input type="file" className="form-control mt-3" accept="image/*" onChange={imageChange} />
 
