@@ -15,9 +15,28 @@
 .flex-content-end {
   justify-content: end;
 }
+.flex-content-space-bt {
+  justify-content: space-between;
+}
+
+.flex-item-center {
+  align-items: center;
+}
+
+.flex-self-start {
+  align-self: start;
+}
+.flex-self-start {
+  align-self: end;
+}
+
 .gap {
   gap: 1em;
 }
 .center {
   align-items: center;
+}
+.wrap {
+  justify-content: space-evenly;
+  flex-wrap: wrap;
 }
