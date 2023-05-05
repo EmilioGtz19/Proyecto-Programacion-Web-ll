@@ -3,8 +3,6 @@ import ReactDom from 'react-dom'
 import { useState } from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Form from 'react-bootstrap/Form';
-import Button from 'react-bootstrap/Button';
-
 
 const MODAL_STYLES = {
     position: 'fixed',
@@ -23,10 +21,6 @@ const OVERLAY_STYLES = {
     bottom: 0,
     backgroundColor: 'rgba(0, 0, 0, .7)',
     zIndex: 1000
-}
-
-const EDIT_TEXT_STYLES = {
-
 }
 
 export default function Modal({open, children, onClose}){
