@@ -18,8 +18,8 @@ const withAuth = (Component) => {
       return null; // or loading spinner
     }
 
-    if (isAuthenticatedValue) {
-      return <Component {...props} />;
+    if (isAuthenticatedValue.loggedIn) {
+      return <Component {...isAuthenticatedValue} />;
     } else {
       swalAlert("Error", "Debe iniciar sesión para acceder a esta página", "error").then(() => {
         window.location.href = '/login';

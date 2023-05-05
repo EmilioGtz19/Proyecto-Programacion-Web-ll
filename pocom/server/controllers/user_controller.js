@@ -34,9 +34,9 @@ module.exports = {
 
             if (foundUser && bcrypt.compareSync(password, foundUser.password)) {
 
-                const { id, first_name, user_photo } = foundUser
+                const { id } = foundUser
 
-                request.session.user = { id, first_name, user_photo }
+                request.session.user = { id }
 
                 return response.status(200).json({
                     message: 'Logged in successfully'
@@ -74,7 +74,6 @@ module.exports = {
             foundUser.first_name = request.body.first_name || foundUser.first_name;
             foundUser.last_name = request.body.last_name || foundUser.last_name;
             foundUser.mother_last_name = request.body.mother_last_name || foundUser.mother_last_name;
-            foundUser.email = request.body.email || foundUser.email;
             foundUser.user_photo = request.body.user_photo || foundUser.user_photo;
 
             await foundUser.save();
@@ -100,12 +99,10 @@ module.exports = {
                     id: id
                 },
                 attributes: [
-                    'id',
                     'first_name',
                     'last_name',
                     'mother_last_name',
                     'email',
-                    'password',
                     'user_photo'
                 ]
             })
