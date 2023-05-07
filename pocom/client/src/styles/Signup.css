@@ -1,13 +1,10 @@
-body{
-    background-image: url("../images/pocomSignup.png");
-    background-size: cover;
-}
-
 .divSignup{
     display: flex;
     align-items: center;
     justify-content: center;
     height: 100vh;
+    background-image: url("../images/pocomSignup.png");
+    background-size: cover;
 }
 
 .imageDimensions{
@@ -21,3 +18,4 @@ body{
     width: 155px;
     height: 155px;
 }
+
