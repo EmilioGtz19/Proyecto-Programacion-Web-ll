@@ -181,7 +181,7 @@ const Profile = (props) => {
                             <Button onClick={() => setIsOpen(true)} className="mt-3 shadow-sm" variant="primary">
                                 Cambiar contraseña
                             </Button>
-                            <Modal open={isOpen} onClose={() => setIsOpen(false)}></Modal>
+                            <Modal open={isOpen} onClose={() => setIsOpen(false)} id={props.user.id}></Modal>
                         </div>
                     </Form>
 

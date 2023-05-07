@@ -12,11 +12,11 @@ const NavBar = () => {
 
       {/*Barra de busqueda(?)*/}
       <form className="flex-container half-width">
-        <input type="text" class="Search full-width"></input>
-        <button type="submit" class="Search-Submit">
+        <input type="text" className="Search full-width"></input>
+        <button type="submit" className="Search-Submit">
           {" "}
           <img
-            class="Search-Submit-Img"
+            className="Search-Submit-Img"
             src={require("../images/pocomSearch.png")}
             alt="..."
           ></img>
@@ -29,14 +29,14 @@ const NavBar = () => {
         {/*Dropdown*/}
         <div className="flex-container flex-item-center">
           <img
-            class="Nav-Userimg"
+            className="Nav-Userimg"
             src={require("../images/pocomDefUser.jpg")}
             alt="..."
           ></img>
           <p className="white-text ">🢓</p>
         </div>
 
-        <div class="dropdown-content white-text">
+        <div className="dropdown-content white-text">
           <p>Perfil</p>
           <hr></hr>
           <p>Cerrar Sesion</p>

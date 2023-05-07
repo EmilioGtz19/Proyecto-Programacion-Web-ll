@@ -136,5 +136,42 @@ module.exports = {
     async destroySession(request, response) {
         request.session.destroy();
         response.send({ loggedIn: false })
+    },
+
+    async updatePass(request, response) {
+        try {
+            const { id } = request.params;
+            const { old_pass, new_pass } = request.body;
+
+            const foundUser = await user.findOne({
+                where: { id }
+            });
+
+            if (!foundUser) {
+                return response.status(404).json({ message: "User not found" });
+            }
+
+            if (!new_pass) {
+                return response
+                    .status(400)
+                    .json({ message: "New password is required" });
+            }
+
+            if (bcrypt.compareSync(old_pass, foundUser.password)) {
+                const newPassHash = bcrypt.hashSync(new_pass, saltRounds);
+                foundUser.password = newPassHash;
+                await foundUser.save();
+                return response.status(200).json({ message: "Password updated" });
+            } else {
+                return response
+                    .status(400)
+                    .json({ message: "Passwords do not match" });
+            }
+        } catch (error) {
+            return response.status(400).json({
+                message: "Error during update pass",
+                error: error.message,
+            });
+        }
     }
 }
