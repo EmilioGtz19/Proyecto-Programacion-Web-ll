@@ -4,6 +4,10 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { useState } from "react";
 import '../styles/CreateCommunity.css';
+import { swalAlert } from '../utils/alerts';
+
+const apiUrl = process.env.REACT_APP_API_URL;
+const apiImage = process.env.REACT_APP_API_IMAGES_URL;
 
 function CreateCommunity(props) {
 
@@ -20,7 +24,7 @@ function CreateCommunity(props) {
         }
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         if (communityName.length === 0 || communityDescription.length === 0) {
             setError(true);
@@ -30,9 +34,103 @@ function CreateCommunity(props) {
         }
 
         if (communityName && communityDescription && selectedImage) {
-            alert("todo correcto")
+            const responseCommunity = await createCommunity();
+            const communityData = await responseCommunity.json();
+            
+            if(responseCommunity.ok){
+     
+                const responseImage = await uploadPhoto();
+
+                if (responseImage.ok) {
+                    const file = await responseImage.json();
+                    
+                    const responseUpdatePhoto = await updateCommunityPhoto(file.secure_url, communityData.id);
+
+                    if(responseUpdatePhoto.ok){
+
+                        swalAlert("Comunidad creada", "La comunidad se ha creado satisfactoriamente.", "success").then(() => {
+                            window.location.href = "/";
+                        });
+
+                    }else {
+                        swalAlert("Error", "Ha ocurrido un error al subir la imagen", "error")
+                    }
+                }
+
+            }else{
+                switch (communityData.name) {
+                    case "SequelizeUniqueConstraintError":
+                        swalAlert("Error", "El nombre de la comunidad ya se encuentra registrado.", "error");
+                        break;
+                    case "SequelizeConnectionRefusedError":
+                        swalAlert("Error", "Ha ocurrido un error en el servidor.", "error");
+                        break;
+                    default:
+                        swalAlert("Error", "Ha ocurrido un error al crear la comunidad.", "error");
+                        break;
+                }
+            }
+            
         }
 
+    }
+
+    async function createCommunity(){
+        try {
+
+            const response = await fetch(`${apiUrl}/api/community/create`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                   community_name: communityName,
+                   community_description: communityDescription,
+                   user_id: props.user.id,
+                   community_photo: null
+                }),
+            })
+
+            return response;
+
+        } catch(error){
+            console.log(error);
+        }
+    }
+
+    async function uploadPhoto() {
+        try {
+
+            const data = new FormData();
+            data.append("file", selectedImage)
+            data.append("upload_preset", "vy7khmyb")
+
+            const response = await fetch(`${apiImage}/image/upload`, {
+                method: "POST",
+                body: data,
+            })
+
+            return response;
+
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    async function updateCommunityPhoto(file, id) {
+        try {
+
+            const response = await fetch(`${apiUrl}/api/community/update/${id}`, {
+                method: "PUT",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    community_photo: file,
+                })
+            });
+
+            return response;
+
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     return (
