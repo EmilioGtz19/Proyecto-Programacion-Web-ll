@@ -14,6 +14,10 @@ module.exports = {
         type: Sequelize.STRING,
         unique: true
       },
+      community_photo: {
+        allowNull: true,
+        type: Sequelize.STRING
+      },
       community_description: {
         allowNull: false,
         type: Sequelize.STRING
