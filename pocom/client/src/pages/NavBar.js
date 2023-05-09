@@ -2,6 +2,7 @@ import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../styles/Flexbox.css";
 import "../styles/NavBar.css";
+import { logout } from "../utils/logout"
 
 const NavBar = () => {
   return (
@@ -39,7 +40,7 @@ const NavBar = () => {
         <div className="dropdown-content white-text">
           <a href="/profile">Perfil</a>
           <hr></hr>
-          <p>Cerrar Sesion</p>
+          <a href="/login" onClick={logout}>Cerrar sesión</a>
         </div>
       </div>
     </div>
