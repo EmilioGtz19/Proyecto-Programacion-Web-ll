@@ -6,6 +6,7 @@ module.exports = {
             const newCommunity = await community.create({
                 community_name: request.body.community_name,
                 community_description: request.body.community_description,
+                community_photo: request.body.community_photo,
                 user_id: request.body.user_id
             });
 
@@ -14,6 +15,7 @@ module.exports = {
             response.status(400).send(error);
         }
     },
+
     async delete(request, response) {
         try {
             const { id } = request.params;
@@ -32,6 +34,7 @@ module.exports = {
             response.status(400).send(error);
         }
     },
+
     async update(request, response) {
         try {
             const { id } = request.params;
@@ -50,6 +53,8 @@ module.exports = {
 
             foundCommunity.community_name = request.body.community_name || foundCommunity.community_name;
             foundCommunity.community_description = request.body.community_description || foundCommunity.community_description;
+            foundCommunity.community_photo = request.body.community_photo || foundCommunity.user_photo;
+
 
             await foundCommunity.save();
 
@@ -64,6 +69,7 @@ module.exports = {
             })
         }
     },
+    
     async getCommunities(request, response) {
         try {
 
@@ -71,7 +77,8 @@ module.exports = {
                 attributes: [
                     'id', 
                     'community_name',
-                    'community_description' 
+                    'community_description',
+                    'community_photo'
                 ],
                 where: {
                     status : 1

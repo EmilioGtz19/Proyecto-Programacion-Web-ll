@@ -1,9 +1,8 @@
-.divSignup{
+.divCreateCommunity {
     display: flex;
     align-items: center;
     justify-content: center;
     height: 100vh;
-    background-image: url("../images/pocomSignup.png");
     background-size: cover;
 }
 
@@ -18,4 +17,3 @@
     width: 155px;
     height: 155px;
 }
-

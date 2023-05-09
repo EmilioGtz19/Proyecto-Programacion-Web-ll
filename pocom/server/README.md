@@ -11,3 +11,18 @@ Antes de ejecutar el comando npm run server
 7. Escriban sus respectivas credenciales en `DB_USERNAME` `DB_PASSWORD`
 8. Despues ejecutar el siguiente comando `sequelize db:migrate`
 9. Verifiquen que se hayan creado correctamente las tablas
+
+
+# SEQUELIZE
+
+## Aplicar migraciones pendientes
+    sequelize db:migrate
+
+## Crear Tabla (Ejemplo)
+    sequelize model:create --name usuario --attributes username:string,status:char
+
+## Deshacer ultima migracion
+    npx sequelize-cli db:migrate:undo
+
+## Deshacer todas las migraciones
+    npx sequelize-cli db:migrate:undo:all

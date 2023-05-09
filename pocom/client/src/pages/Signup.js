@@ -40,17 +40,17 @@ const Signup = () => {
         if (!selectedImage) {
             setEmptyImage(true);
         }
-        if(password !== confirmPassword){
+        if (password !== confirmPassword) {
             setSamePasswords(false);
         }
-        else{
+        else {
             setSamePasswords(true);
         }
 
         if (firstName && fatherLastName && motherLastName
             && email && password && confirmPassword
             && selectedImage && (password === confirmPassword)) {
-                
+
             try {
 
                 const response = await fetch(`${apiUrl}/api/user/create`, {
@@ -115,81 +115,84 @@ const Signup = () => {
     }
 
     return (
-        <Form className="divSignup" onSubmit={handleSubmit}>
-            <div style={{ width: 1000 }} className="bg-white p-5 rounded-5 text-success shadow-lg text-center">
 
-                <h1 className="mb-3">Registro</h1>
+        <div className="divSignup">
+            <Form onSubmit={handleSubmit}>
+                <div style={{ width: 1000 }} className="bg-white p-5 rounded-5 text-success shadow-lg text-center">
 
-                <div className="d-flex justify-content-center">
-                    <div className=" borderPicture">
-                        {selectedImage && (
-                            <img src={URL.createObjectURL(selectedImage)} className="imageDimensions" alt="User" />
-                        )}
+                    <h1 className="mb-3">Registro</h1>
+
+                    <div className="d-flex justify-content-center">
+                        <div className=" borderPicture">
+                            {selectedImage && (
+                                <img src={URL.createObjectURL(selectedImage)} className="imageDimensions" alt="User" />
+                            )}
+                        </div>
                     </div>
+                    {emptyImage ?
+                        <Form.Label className="text-danger">La imagen no puede estar vacía</Form.Label> : ""}
+
+                    <input type="file" className="form-control mt-3" accept="image/*" onChange={imageChange} />
+
+                    <div>
+                        <Form.Group>
+                            <Form.Label className="col-6 fw-semibold">Nombres</Form.Label>
+                            <Form.Label className="col-6 fw-semibold">Apellido Paterno</Form.Label>
+                        </Form.Group>
+                        <Form.Group className="input-group gap-3">
+                            <Form.Control type="text" className="shadow-sm border border-success border-2" onChange={e => setFirstName(e.target.value)}></Form.Control>
+                            <Form.Control type="text" className="shadow-sm border border-success border-2" onChange={e => setFatherLastName(e.target.value)}></Form.Control>
+                        </Form.Group>
+                        <Form.Group>
+                            {error && firstName.length <= 0 ?
+                                <Form.Label className="col-6 text-danger">El nombre no puede estar vacío</Form.Label> : ""}
+                            {error && fatherLastName.length <= 0 ?
+                                <Form.Label className="col-6 text-danger">El apellido paterno no puede estar vacío</Form.Label> : ""}
+                        </Form.Group>
+                    </div>
+
+                    <div>
+                        <Form.Group>
+                            <Form.Label className="col-6 fw-semibold">Apellido Materno</Form.Label>
+                            <Form.Label className="col-6 fw-semibold">Email</Form.Label>
+                        </Form.Group>
+                        <Form.Group className="input-group gap-3">
+                            <Form.Control type="text" className="shadow-sm border border-success border-2" onChange={e => setMotherLastName(e.target.value)}></Form.Control>
+                            <Form.Control type="email" className="shadow-sm border border-success border-2" onChange={e => setEmail(e.target.value)}></Form.Control>
+                        </Form.Group>
+                        <Form.Group>
+                            {error && motherLastName.length <= 0 ?
+                                <Form.Label className="col-6 text-danger">El apellido materno no puede estar vacío</Form.Label> : ""}
+                            {error && email.length <= 0 ?
+                                <Form.Label className="col-6 text-danger">El correo electrónico no puede estar vacío</Form.Label> : ""}
+                        </Form.Group>
+                    </div>
+
+                    <div>
+                        <Form.Group>
+                            <Form.Label className="col-6 fw-semibold">Contraseña</Form.Label>
+                            <Form.Label className="col-6 fw-semibold">Confirmar Contraseña</Form.Label>
+                        </Form.Group>
+                        <Form.Group className="input-group gap-3">
+                            <Form.Control type="password" className="shadow-sm border border-success border-2" onChange={e => setPassword(e.target.value)}></Form.Control>
+                            <Form.Control type="password" className="shadow-sm border border-success border-2" onChange={e => setConfirmPassword(e.target.value)}></Form.Control>
+                        </Form.Group>
+                        <Form.Group>
+                            {error && password.length <= 0 ?
+                                <Form.Label className="col-6 text-danger">La contraseña no puede estar vacía</Form.Label> : ""}
+                            {error && confirmPassword.length <= 0 ?
+                                <Form.Label className="col-6 text-danger">La contraseña confirmada no puede estar vacía</Form.Label> : ""}
+                            {!samePasswords ?
+                                <Form.Label className="col-12 text-danger">Las contraseñas deben ser iguales</Form.Label> : ""}
+                        </Form.Group>
+                    </div>
+
+                    <Button className="mt-3 shadow-sm" variant="success" type="submit">
+                        Registrar
+                    </Button>
                 </div>
-                {emptyImage ?
-                    <Form.Label className="text-danger">La imagen no puede estar vacía</Form.Label> : ""}
-
-                <input type="file" className="form-control mt-3" accept="image/*" onChange={imageChange} />
-
-                <div>
-                    <Form.Group>
-                        <Form.Label className="col-6 fw-semibold">Nombres</Form.Label>
-                        <Form.Label className="col-6 fw-semibold">Apellido Paterno</Form.Label>
-                    </Form.Group>
-                    <Form.Group className="input-group gap-3">
-                        <Form.Control type="text" className="shadow-sm border border-success border-2" onChange={e => setFirstName(e.target.value)}></Form.Control>
-                        <Form.Control type="text" className="shadow-sm border border-success border-2" onChange={e => setFatherLastName(e.target.value)}></Form.Control>
-                    </Form.Group>
-                    <Form.Group>
-                        {error && firstName.length <= 0 ?
-                            <Form.Label className="col-6 text-danger">El nombre no puede estar vacío</Form.Label> : ""}
-                        {error && fatherLastName.length <= 0 ?
-                            <Form.Label className="col-6 text-danger">El apellido paterno no puede estar vacío</Form.Label> : ""}
-                    </Form.Group>
-                </div>
-
-                <div>
-                    <Form.Group>
-                        <Form.Label className="col-6 fw-semibold">Apellido Materno</Form.Label>
-                        <Form.Label className="col-6 fw-semibold">Email</Form.Label>
-                    </Form.Group>
-                    <Form.Group className="input-group gap-3">
-                        <Form.Control type="text" className="shadow-sm border border-success border-2" onChange={e => setMotherLastName(e.target.value)}></Form.Control>
-                        <Form.Control type="email" className="shadow-sm border border-success border-2" onChange={e => setEmail(e.target.value)}></Form.Control>
-                    </Form.Group>
-                    <Form.Group>
-                        {error && motherLastName.length <= 0 ?
-                            <Form.Label className="col-6 text-danger">El apellido materno no puede estar vacío</Form.Label> : ""}
-                        {error && email.length <= 0 ?
-                            <Form.Label className="col-6 text-danger">El correo electrónico no puede estar vacío</Form.Label> : ""}
-                    </Form.Group>
-                </div>
-
-                <div>
-                    <Form.Group>
-                        <Form.Label className="col-6 fw-semibold">Contraseña</Form.Label>
-                        <Form.Label className="col-6 fw-semibold">Confirmar Contraseña</Form.Label>
-                    </Form.Group>
-                    <Form.Group className="input-group gap-3">
-                        <Form.Control type="password" className="shadow-sm border border-success border-2" onChange={e => setPassword(e.target.value)}></Form.Control>
-                        <Form.Control type="password" className="shadow-sm border border-success border-2" onChange={e => setConfirmPassword(e.target.value)}></Form.Control>
-                    </Form.Group>
-                    <Form.Group>
-                        {error && password.length <= 0 ?
-                            <Form.Label className="col-6 text-danger">La contraseña no puede estar vacía</Form.Label> : ""}
-                        {error && confirmPassword.length <= 0 ?
-                            <Form.Label className="col-6 text-danger">La contraseña confirmada no puede estar vacía</Form.Label> : ""}
-                        {!samePasswords ?
-                            <Form.Label className="col-12 text-danger">Las contraseñas deben ser iguales</Form.Label> : ""}
-                    </Form.Group>
-                </div>
-
-                <Button className="mt-3 shadow-sm" variant="success" type="submit">
-                    Registrar
-                </Button>
-            </div>
-        </Form>
+            </Form>
+        </div>
     );
 }
 
