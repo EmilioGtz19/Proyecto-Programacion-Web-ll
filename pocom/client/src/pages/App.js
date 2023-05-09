@@ -19,7 +19,7 @@ function App() {
         <Route exact path="/signup" Component={Signup} />
         <Route exact path="/community" Component={Community} />
         <Route exact path="/profile" Component={withAuth(Profile)} />
-        <Route exact path="/CreateCommunity" Component={CreateCommunity} />
+        <Route exact path="/CreateCommunity" Component={withAuth(CreateCommunity)} />
         <Route path="*" Component={NotFoundPage} />
       </Routes>
     </BrowserRouter>
