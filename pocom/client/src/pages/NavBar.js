@@ -37,7 +37,7 @@ const NavBar = () => {
         </div>
 
         <div className="dropdown-content white-text">
-          <p>Perfil</p>
+          <a href="/profile">Perfil</a>
           <hr></hr>
           <p>Cerrar Sesion</p>
         </div>

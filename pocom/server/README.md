@@ -15,6 +15,9 @@ Antes de ejecutar el comando npm run server
 
 # SEQUELIZE
 
+## Aplicar migraciones pendientes
+    sequelize db:migrate
+
 ## Crear Tabla (Ejemplo)
     sequelize model:create --name usuario --attributes username:string,status:char
 
