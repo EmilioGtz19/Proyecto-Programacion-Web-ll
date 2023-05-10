@@ -2,7 +2,9 @@ import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../styles/Flexbox.css";
 import "../styles/NavBar.css";
-import { logout } from "../utils/logout"
+import { logout } from "../utils/logout";
+import ComModal from "../pages/CommunityModal.js";
+import ComAdModal from "../pages/CommunityAdminModal.js";
 
 const NavBar = () => {
   return (
@@ -10,6 +12,10 @@ const NavBar = () => {
       {/*Logo*/}
 
       <div className="white-text horizontal-spacing"> Logo </div>
+
+      <button class="white-text" onClick={showcommunities}>
+        Comunidades
+      </button>
 
       {/*Barra de busqueda(?)*/}
       <form className="flex-container half-width">
@@ -23,6 +29,11 @@ const NavBar = () => {
           ></img>
         </button>
       </form>
+
+      <button class="white-text" onClick={showAdmincommunities}>
+        Comunidades administradas
+      </button>
+
       {/*Botones de navegacion*/}
 
       {/*Perfil*/}
@@ -34,17 +45,39 @@ const NavBar = () => {
             src={require("../images/pocomDefUser.jpg")}
             alt="..."
           ></img>
-          <p className="white-text ">🢓</p>
+          <p className="white-text">🢓</p>
         </div>
 
         <div className="dropdown-content white-text">
           <a href="/profile">Perfil</a>
           <hr></hr>
-          <a href="/login" onClick={logout}>Cerrar sesión</a>
+          <a href="/login" onClick={logout}>
+            Cerrar sesión
+          </a>
         </div>
       </div>
+      <ComModal id="modal-container" style="display:none;"></ComModal>
+
+      <ComAdModal id="modal-id-container"></ComAdModal>
     </div>
   );
 };
+
+function showcommunities() {
+  var secc = document.getElementById("modal-container");
+  if (secc.style.display === "none") {
+    secc.style.display = "block";
+  } else {
+    secc.style.display = "none";
+  }
+}
+function showAdmincommunities() {
+  var seccc = document.getElementById("modal-id-container");
+  if (seccc.style.display === "none") {
+    seccc.style.display = "block";
+  } else {
+    seccc.style.display = "none";
+  }
+}
 
 export default NavBar;

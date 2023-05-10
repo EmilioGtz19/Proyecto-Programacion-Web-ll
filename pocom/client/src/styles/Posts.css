@@ -21,6 +21,10 @@
   margin: 1%;
 }
 
+.buttonfillwidth {
+  width: 100%;
+}
+
 button {
   border-radius: 20px;
   padding: 2px 2%;

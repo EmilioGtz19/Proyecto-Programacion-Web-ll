@@ -9,7 +9,7 @@ import FilterPost from "../pages/FilterPost.js";
 const Home = () => {
   return (
     <div
-      className="flex-container flex-column gap center" /*contenedor de los posts, hacer box rellena*/
+      className="flex-container flex-column gap center top-margin" /*contenedor de los posts, hacer box rellena*/
     >
       <NavBar></NavBar>
       {/* Crear Posts */}
