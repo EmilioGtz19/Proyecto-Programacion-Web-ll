@@ -56,7 +56,7 @@ const NavBar = () => {
           </a>
         </div>
       </div>
-      <ComModal id="modal-container" style="display:none;"></ComModal>
+      <ComModal id="modal-container" style={{display:`none`}}></ComModal>
 
       <ComAdModal id="modal-id-container"></ComAdModal>
     </div>
