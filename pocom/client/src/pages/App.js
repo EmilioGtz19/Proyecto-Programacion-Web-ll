@@ -8,6 +8,7 @@ import Community from "./Community";
 import NotFoundPage from "./NotFoundPage";
 import withAuth from "../hocs/withAuth";
 import CreateCommunity from "./CreateCommunity";
+import ManageCommunities from "./ManageCommunities";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
         <Route exact path="/community" Component={Community} />
         <Route exact path="/profile" Component={withAuth(Profile)} />
         <Route exact path="/CreateCommunity" Component={withAuth(CreateCommunity)} />
+        <Route exact path="/ManageCommunities" Component={ManageCommunities} />
         <Route path="*" Component={NotFoundPage} />
       </Routes>
     </BrowserRouter>

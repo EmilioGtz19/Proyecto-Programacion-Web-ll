@@ -54,6 +54,8 @@ const NavBar = () => {
           <a href="/login" onClick={logout}>
             Cerrar sesión
           </a>
+          <hr></hr>
+          <a href="/ManageCommunities">Mis comunidades</a>
         </div>
       </div>
       <ComModal id="modal-container" style={{display:`none`}}></ComModal>
