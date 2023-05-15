@@ -1,0 +1,69 @@
+/* Estilos para la capa de fondo */
+.modal-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(49, 52, 54, 0.8);
+}
+
+/* Estilos para el contenedor del modal */
+.modal-container {
+  position: fixed;
+  top: 5.75%;
+  left: 0.5%;
+  width: 24%;
+  max-height: 93%;
+  background-color: rgba(49, 52, 54, 0.8);
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  overflow-y: auto;
+}
+
+.Admin {
+  left: 75.5%;
+}
+
+.Edit {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* Estilos para el encabezado del modal */
+.modal-header {
+  padding: 20px;
+  background-color: #f1f1f1;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+/* Estilos para el botón de cierre */
+.close-button {
+  position: absolute;
+  top: 0;
+  right: 0;
+  font-size: 20px;
+  color: #aaa;
+  padding: 5px 10px;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+/* Estilos para el contenido del modal */
+.modal-content {
+  padding: 20px;
+}
+
+::-webkit-scrollbar {
+  background-color: rgb(27, 176, 115);
+  border-radius: 0px 10px 10px 0px;
+}
+
+/* Cambiar el color de la barra de desplazamiento */
+::-webkit-scrollbar-thumb {
+  background-color: rgb(38, 41, 44);
+  border-radius: 0px 9px 9px 0px;
+}
