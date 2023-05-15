@@ -13,7 +13,7 @@ const NavBar = () => {
 
       <div className="white-text horizontal-spacing"> Logo </div>
 
-      <button class="white-text" onClick={showcommunities}>
+      <button className="white-text" onClick={showcommunities}>
         Comunidades
       </button>
 
@@ -30,7 +30,7 @@ const NavBar = () => {
         </button>
       </form>
 
-      <button class="white-text" onClick={showAdmincommunities}>
+      <button className="white-text" onClick={showAdmincommunities}>
         Comunidades administradas
       </button>
 
