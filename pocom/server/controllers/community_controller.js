@@ -93,5 +93,34 @@ module.exports = {
                 error: error.message
             })
         }
+    },
+
+    async getCommunitiesByUser(request, response) {
+        try{
+
+            const { id } = request.params;
+
+            const foundCommunities = await community.findAll({
+                where: {
+                    user_id: id,
+                    status : 1
+                },
+                attributes: [
+                    'id',
+                    'community_name',
+                    'community_description',
+                    'community_photo'
+                ]
+            })
+
+
+            response.status(200).json(foundCommunities);
+
+        }catch(error){
+            return response.status(400).json({
+                message: 'Error getting communities',
+                error: error.message
+            })
+        }
     }
 }
