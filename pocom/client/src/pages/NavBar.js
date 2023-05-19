@@ -11,7 +11,13 @@ const NavBar = () => {
     <div className="Nav flex-container flex-content-space-bt flex-item-center y-padding">
       {/*Logo*/}
 
-      <div className="white-text horizontal-spacing"> Logo </div>
+      <div className="white-text horizontal-spacing">
+        <img
+          className="Nav-Userimg"
+          src={require("../images/kitten.jpg")}
+          alt="..."
+        ></img>
+      </div>
 
       <button className="white-text" onClick={showcommunities}>
         Comunidades
