@@ -63,10 +63,7 @@ module.exports = {
             });
 
         } catch (error) {
-            return response.status(400).json({
-                message: 'Error during update',
-                error: error.message
-            })
+            return response.status(400).send(error)
         }
     },
     

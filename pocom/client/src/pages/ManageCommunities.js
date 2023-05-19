@@ -9,6 +9,8 @@ const apiUrl = process.env.REACT_APP_API_URL;
 function ManageCommunities(props) {
 
     const [isOpen, setIsOpen] = useState(false);
+    const [community_id, setCommunityId] = useState(null);
+    const [communityData, setCommunityData] = useState({})
     const [communities, setCommunities] = useState([]);
 
     async function getCommunitiesByUser() {
@@ -30,8 +32,7 @@ function ManageCommunities(props) {
 
     useEffect(() => {
         getCommunitiesByUser();
-    });
-
+    },[]);
 
     return (
         <div className="divManageCommunities">
@@ -41,13 +42,11 @@ function ManageCommunities(props) {
 
                     {communities.length > 0 ? (
                         communities.map((community) => (
-
                             <div key={community.id} className='col-3 mb-3'>
                                 <img className='imageDimensions' src={community.community_photo} alt='ImageCommunity'></img>
-                                <h4 className='title' onClick={() => setIsOpen(true)}>{community.community_name}</h4>
+                                <h4 className='title' onClick={() => {setIsOpen(true); setCommunityId(community.id); setCommunityData({name: community.community_name, desc: community.community_description, photo: community.community_photo})}}>{community.community_name}</h4>
                                 <p>{community.community_description}</p>
                             </div>
-
                         ))
                     ) : (
                         <div>
@@ -59,7 +58,7 @@ function ManageCommunities(props) {
 
                 </div>
             </div>
-            <EditDeleteCommunity open={isOpen} onClose={() => setIsOpen(false)}></EditDeleteCommunity>
+            <EditDeleteCommunity open={isOpen} onClose={() => setIsOpen(false)} id={community_id} data={communityData}></EditDeleteCommunity>
         </div>
     );
 }
