@@ -119,5 +119,34 @@ module.exports = {
                 error: error.message
             })
         }
+    },
+
+    async logicalDelete(request, response){
+        try {
+            const { id } = request.params;
+
+            const foundCommunity = await community.findOne({
+                where: {
+                    id: id
+                }
+            });
+
+            if (!foundCommunity) {
+                return response.status(404).json({
+                    message: 'Community not found'
+                });
+            }
+
+            foundCommunity.status = 0;
+
+            await foundCommunity.save();
+
+            return response.status(200).json({
+                message: 'Community deleted successfully'
+            });
+
+        } catch (error) {
+            response.status(400).send(error);
+        }
     }
 }

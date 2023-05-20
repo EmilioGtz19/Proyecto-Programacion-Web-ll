@@ -13,26 +13,27 @@ function ManageCommunities(props) {
     const [communityData, setCommunityData] = useState({})
     const [communities, setCommunities] = useState([]);
 
-    async function getCommunitiesByUser() {
-        try {
-
-            const response = await fetch(`${apiUrl}/api/community/getCommunitiesByUser/${props.user.id}`, {
-                method: "GET",
-                headers: { "Content-Type": "application/json" },
-            });
-
-            const data = await response.json();
-
-            setCommunities(data);
-
-        } catch (error) {
-            console.log(error);
-        }
-    }
-
     useEffect(() => {
+
+        async function getCommunitiesByUser() {
+            try {
+    
+                const response = await fetch(`${apiUrl}/api/community/getCommunitiesByUser/${props.user.id}`, {
+                    method: "GET",
+                    headers: { "Content-Type": "application/json" },
+                });
+    
+                const data = await response.json();
+    
+                setCommunities(data);
+    
+            } catch (error) {
+                console.log(error);
+            }
+        }
+
         getCommunitiesByUser();
-    },[]);
+    },[props.user.id]);
 
     return (
         <div className="divManageCommunities">

@@ -62,7 +62,7 @@ export default function Modal({ open, children, onClose, id, data }) {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        
+
         if (myForm.current.buttonId === 'save') {
             if (communityName.length === 0 || communityDescription.length === 0) {
                 setError(true);
@@ -72,7 +72,7 @@ export default function Modal({ open, children, onClose, id, data }) {
 
                 const responseUpdate = await updateCommunity();
                 const communityData = await responseUpdate.json();
-                
+
                 if (responseUpdate.ok) {
 
                     if (selectedImage) {
@@ -123,13 +123,32 @@ export default function Modal({ open, children, onClose, id, data }) {
 
         if (myForm.current.buttonId === 'delete') {
 
-            alert('se elimina');
-            onClose(true);
+            const responseDelete = await deleteCommunity()
+            const deleteData = await responseDelete.json();
 
+            if (responseDelete.ok) {
+
+                swalAlert("Comunidad eliminada", "La comunidad se ha eliminado satisfactoriamente.", "success").then(() => {
+                    window.location.href = "/ManageCommunities";
+                });
+
+            } else {
+                switch (deleteData.name) {
+                    case "SequelizeConnectionRefusedError":
+                        swalAlert("Error", "Ha ocurrido un error en el servidor.", "error");
+                        break;
+                    default:
+                        swalAlert("Error", "Ha ocurrido un error al eliminar la comunidad.", "error");
+                        break;
+                }
+            }
+
+            onClose(true);
             setCommunityName('');
             setCommunityDescription('');
             setError(false);
         }
+
     }
 
     function closeModal() {
@@ -191,6 +210,22 @@ export default function Modal({ open, children, onClose, id, data }) {
         }
     }
 
+    async function deleteCommunity() {
+        try {
+
+            const response = await fetch(`${apiUrl}/api/community/logicalDelete/${id}`, {
+                method: "PUT",
+                headers: { "Content-Type": "application/json" }
+            })
+
+            return response;
+
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+
     if (!open) return null
 
     return ReactDom.createPortal(
@@ -236,7 +271,7 @@ export default function Modal({ open, children, onClose, id, data }) {
                         <Button id='save' onClick={e => myForm.current.buttonId = e.target.id} className="mt-2 shadow-sm" variant="success" type="submit" value={'guardar'}>
                             Guardar cambios
                         </Button>
-                        <Button id='delete' onClick={e => myForm.current.buttonId = e.target.id} className="mt-2 shadow-sm" variant="danger" type="button" value={'eliminar'}>
+                        <Button id='delete' onClick={e => myForm.current.buttonId = e.target.id} className="mt-2 shadow-sm" variant="danger" type="submit" value={'eliminar'}>
                             Eliminar comunidad
                         </Button>
                     </div>
