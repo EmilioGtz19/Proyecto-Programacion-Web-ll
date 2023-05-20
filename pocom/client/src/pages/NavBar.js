@@ -2,21 +2,32 @@ import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../styles/Flexbox.css";
 import "../styles/NavBar.css";
+import { useEffect } from "react";
 import { logout } from "../utils/logout";
 import ComModal from "../pages/CommunityModal.js";
 import ComAdModal from "../pages/CommunityAdminModal.js";
 
 const NavBar = () => {
+    
+  useEffect(() => {
+    var secc = document.getElementById("modal-container");
+    var seccc = document.getElementById("modal-id-container");
+    secc.style.display = "none";
+    seccc.style.display = "none";
+  },[])
+  
   return (
     <div className="Nav flex-container flex-content-space-bt flex-item-center y-padding">
       {/*Logo*/}
 
       <div className="white-text horizontal-spacing">
-        <img
+        <a href="/home">
+          <img
           className="Nav-Userimg"
           src={require("../images/kitten.jpg")}
           alt="..."
         ></img>
+        </a>
       </div>
 
       <button className="white-text" onClick={showcommunities}>
@@ -64,11 +75,13 @@ const NavBar = () => {
           <a href="/ManageCommunities">Mis comunidades</a>
         </div>
       </div>
-      <ComModal id="modal-container" style={{display:`none`}}></ComModal>
+      <ComModal id="modal-container" style={{ display: `none` }}></ComModal>
 
       <ComAdModal id="modal-id-container"></ComAdModal>
     </div>
   );
+
+
 };
 
 function showcommunities() {
