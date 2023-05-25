@@ -5,15 +5,14 @@ import "../styles/NavBar.css";
 import { useEffect } from "react";
 import { logout } from "../utils/logout";
 import ComModal from "../pages/CommunityModal.js";
-import ComAdModal from "../pages/CommunityAdminModal.js";
 
 const NavBar = () => {
     
   useEffect(() => {
     var secc = document.getElementById("modal-container");
-    var seccc = document.getElementById("modal-id-container");
+    //var seccc = document.getElementById("modal-id-container");
     secc.style.display = "none";
-    seccc.style.display = "none";
+    //seccc.style.display = "none";
   },[])
   
   return (
@@ -47,10 +46,6 @@ const NavBar = () => {
         </button>
       </form>
 
-      <button className="white-text" onClick={showAdmincommunities}>
-        Comunidades administradas
-      </button>
-
       {/*Botones de navegacion*/}
 
       {/*Perfil*/}
@@ -76,8 +71,6 @@ const NavBar = () => {
         </div>
       </div>
       <ComModal id="modal-container" style={{ display: `none` }}></ComModal>
-
-      <ComAdModal id="modal-id-container"></ComAdModal>
     </div>
   );
 
@@ -92,6 +85,8 @@ function showcommunities() {
     secc.style.display = "none";
   }
 }
+
+/*
 function showAdmincommunities() {
   var seccc = document.getElementById("modal-id-container");
   if (seccc.style.display === "none") {
@@ -99,6 +94,6 @@ function showAdmincommunities() {
   } else {
     seccc.style.display = "none";
   }
-}
+}*/
 
 export default NavBar;
