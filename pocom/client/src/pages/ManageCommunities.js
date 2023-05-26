@@ -38,7 +38,9 @@ function ManageCommunities(props) {
     <div className="divManageCommunities">
       <div className="App bg-white p-5 rounded-5 shadow-lg container mt-3 mb-3">
         <h1 className="mb-3 text-success">Comunidades creadas</h1>
-        <button href="/CreateCommunity">Crear Comunidad</button>
+        <button type="button" onClick={()=> {
+          window.location.href = "/CreateCommunity"
+        }}>Crear Comunidad</button>
         <div className="row">
           {communities.length > 0 ? (
             communities.map((community) => (
