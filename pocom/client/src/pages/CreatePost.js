@@ -34,7 +34,6 @@ const CreatePost = () => {
             <input
               type="file"
               accept="image/*"
-              onChange={""}
               placeholder="AgregarImagen"
             />
             <button className="white-text"> publish</button>
