@@ -182,5 +182,39 @@ module.exports = {
                 error: error.message
             })
         }
+    },
+
+    async getCommunityByName(request, response) {
+        try {
+
+            const { community_name } = request.params;
+
+            const foundCommunities = await community.findOne({
+                where: {
+                    community_name: community_name,
+                    status: 1
+                },
+                attributes: [
+                    'id',
+                    'community_name',
+                    'community_description',
+                    'community_photo'
+                ]
+            })
+
+            if(foundCommunities){
+                response.status(200).json(foundCommunities);
+            }else{
+                response.status(404).json({
+                    message:'Community Not Found'
+                });
+            }
+
+        } catch (error) {
+            response.status(400).json({
+                message: 'Error getting communities',
+                error: error.message
+            })
+        }
     }
 }

@@ -40,6 +40,9 @@ const ComModal = () => {
               <button
                 key={community.id}
                 className="big-text white-text buttonfillwidth top-margin"
+                onClick={() => {
+                  window.location.href = `/community/${community.community_name}`;
+                }}
               >
                 {community.community_name}
               </button>
