@@ -34,9 +34,9 @@ module.exports = {
 
             if (foundUser && bcrypt.compareSync(password, foundUser.password)) {
 
-                const { id } = foundUser
+                const { id, user_photo } = foundUser
 
-                request.session.user = { id }
+                request.session.user = { id, user_photo }
 
                 return response.status(200).json({
                     message: 'Logged in successfully'

@@ -6,7 +6,7 @@ import { useEffect } from "react";
 import { logout } from "../utils/logout";
 import ComModal from "../pages/CommunityModal.js";
 
-const NavBar = (props) => {
+const NavBar = () => {
   useEffect(() => {
     var secc = document.getElementById("modal-container");
     //var seccc = document.getElementById("modal-id-container");
@@ -57,7 +57,7 @@ const NavBar = (props) => {
         <div className="flex-container flex-item-center">
           <img
             className="Nav-Userimg"
-            src={props.image}
+            src={localStorage.getItem('user_photo')}
             alt="user"
           ></img>
           <p className="white-text">🢓</p>

@@ -3,38 +3,16 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "../styles/Flexbox.css";
 import "../styles/Posts.css";
 import NavBar from "../pages/NavBar.js";
-import { useState, useEffect } from "react";
 import CreatePost from "../pages/CreatePost.js";
 import Post from "../pages/Post.js";
 
-const apiUrl = process.env.REACT_APP_API_URL;
-
-const Home = (props) => {
-
-  const [imageUrl, setImageUrl] = useState();
-
-  useEffect(() => {
-    async function getUser() {
-        try {
-            const response = await fetch(`${apiUrl}/api/user/getUser/${props.user.id}`, {
-                method: "GET",
-                headers: { "Content-Type": "application/json" },
-            });
-
-            const data = await response.json();
-            setImageUrl(data.user.user_photo);
-        } catch (error) {
-            console.log(error);
-        }
-    }
-    getUser();
-}, [props.user.id])
+const Home = () => {
 
   return (
     <div
       className="flex-container flex-column gap center top-margin" /*contenedor de los posts, hacer box rellena*/
     >
-      <NavBar image={imageUrl} ></NavBar>
+      <NavBar></NavBar>
       {/* Crear Posts */}
       <CreatePost></CreatePost>
       {/* Filtrar Posts

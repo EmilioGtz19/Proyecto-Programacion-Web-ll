@@ -19,6 +19,7 @@ const withAuth = (Component) => {
     }
 
     if (isAuthenticatedValue.loggedIn) {
+      localStorage.setItem('user_photo',isAuthenticatedValue.user.user_photo);
       return <Component {...isAuthenticatedValue} />;
     } else {
       swalAlert("Error", "Debe iniciar sesión para acceder a esta página", "error").then(() => {
