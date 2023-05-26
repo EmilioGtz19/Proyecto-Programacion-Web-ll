@@ -66,19 +66,19 @@ module.exports = {
             return response.status(400).send(error)
         }
     },
-    
+
     async getCommunities(request, response) {
         try {
 
             const foundCommunities = await community.findAll({
                 attributes: [
-                    'id', 
+                    'id',
                     'community_name',
                     'community_description',
                     'community_photo'
                 ],
                 where: {
-                    status : 1
+                    status: 1
                 }
             })
 
@@ -93,14 +93,14 @@ module.exports = {
     },
 
     async getCommunitiesByUser(request, response) {
-        try{
+        try {
 
             const { id } = request.params;
 
             const foundCommunities = await community.findAll({
                 where: {
                     user_id: id,
-                    status : 1
+                    status: 1
                 },
                 attributes: [
                     'id',
@@ -113,7 +113,7 @@ module.exports = {
 
             response.status(200).json(foundCommunities);
 
-        }catch(error){
+        } catch (error) {
             return response.status(400).json({
                 message: 'Error getting communities',
                 error: error.message
@@ -121,7 +121,7 @@ module.exports = {
         }
     },
 
-    async logicalDelete(request, response){
+    async logicalDelete(request, response) {
         try {
             const { id } = request.params;
 
@@ -147,6 +147,40 @@ module.exports = {
 
         } catch (error) {
             response.status(400).send(error);
+        }
+    },
+
+    async getCommunityById(request, response) {
+        try {
+
+            const { id } = request.params;
+
+            const foundCommunities = await community.findOne({
+                where: {
+                    id: id,
+                    status: 1
+                },
+                attributes: [
+                    'id',
+                    'community_name',
+                    'community_description',
+                    'community_photo'
+                ]
+            })
+
+            if(foundCommunities){
+                response.status(200).json(foundCommunities);
+            }else{
+                response.status(404).json({
+                    message:'Community Not Found'
+                });
+            }
+
+        } catch (error) {
+            response.status(400).json({
+                message: 'Error getting communities',
+                error: error.message
+            })
         }
     }
 }
