@@ -7,34 +7,37 @@ import { logout } from "../utils/logout";
 import ComModal from "../pages/CommunityModal.js";
 
 const NavBar = () => {
-    
   useEffect(() => {
     var secc = document.getElementById("modal-container");
     //var seccc = document.getElementById("modal-id-container");
     secc.style.display = "none";
     //seccc.style.display = "none";
-  },[])
-  
-  return (
-    <div className="Nav flex-container flex-content-space-bt flex-item-center y-padding">
-      {/*Logo*/}
+  }, []);
 
-      <div className="white-text horizontal-spacing">
-        <a href="/home">
-          <img
-          className="Nav-Userimg"
-          src={require("../images/kitten.jpg")}
-          alt="..."
-        ></img>
-        </a>
+  return (
+    <div
+      className="Nav flex-container flex-content-space-bt 
+    flex-item-center y-padding"
+    >
+      {/*Logo*/}
+      <div className="flex-container flex-content-space-bt flex-item-center y-padding Logo">
+        <div className="white-text horizontal-spacing">
+          <a href="/home">
+            <img
+              className="Nav-Userimg"
+              src={require("../images/kitten.jpg")}
+              alt="..."
+            ></img>
+          </a>
+        </div>
+
+        <button className="white-text Community" onClick={showcommunities}>
+          Comunidades
+        </button>
       </div>
 
-      <button className="white-text" onClick={showcommunities}>
-        Comunidades
-      </button>
-
       {/*Barra de busqueda(?)*/}
-      <form className="flex-container half-width">
+      <form className="flex-container half-width center-absolute">
         <input type="text" className="Search full-width"></input>
         <button type="submit" className="Search-Submit">
           {" "}
@@ -73,8 +76,6 @@ const NavBar = () => {
       <ComModal id="modal-container" style={{ display: `none` }}></ComModal>
     </div>
   );
-
-
 };
 
 function showcommunities() {

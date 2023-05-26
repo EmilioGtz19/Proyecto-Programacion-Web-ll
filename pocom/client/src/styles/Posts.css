@@ -49,3 +49,7 @@ button:hover {
   border-radius: 0px 25px 25px 0px;
   padding: 0px 10px;
 }
+#CreadorDePosts > .btn-middle {
+  border-radius: 0px;
+}
+ 

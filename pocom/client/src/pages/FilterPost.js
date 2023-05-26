@@ -6,7 +6,7 @@ import "../styles/Posts.css";
 const FilterPost = () => {
   return (
     <div
-      className="flex-container flex-column post-container white-text no-top-padding"
+      className="flex-container flex-column post-container white-text "
       /*Contenedor de la informacion de la comunidad*/
     >
       <div

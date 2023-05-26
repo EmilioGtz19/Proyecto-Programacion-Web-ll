@@ -22,6 +22,7 @@ const CreatePost = () => {
           className="flex-container horizontal-spacing full-width"
         >
           <input type="text" placeholder="Crear un post"></input>
+          <button className="white-text btn-middle"> Subir una imagen</button>
           <button className="white-text"> publish</button>
         </div>
       </div>
