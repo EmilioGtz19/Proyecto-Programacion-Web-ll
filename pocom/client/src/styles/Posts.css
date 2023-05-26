@@ -6,10 +6,21 @@
   border-radius: 5px;
   padding: 2%;
 }
+.community-container {
+  background-color: rgba(68, 75, 79, 0.8);
+  width: 75%;
+  border-radius: 5px;
+  padding: 2%;
+}
 
 .post-Userimg {
   border-radius: 50%;
   height: 30px;
+}
+
+.community-img {
+  border-radius: 50%;
+  height: 60px;
 }
 
 .post-Image {
@@ -38,18 +49,36 @@ button:hover {
   border-color: rgb(38, 41, 44);
 }
 
+.invertbtn {
+  background-color: rgb(27, 176, 115);
+  color: black;
+  border-color: rgb(38, 41, 44);
+}
+
 #CreadorDePosts > input[type="text"] {
   flex-grow: 1;
+  display: block;
+  resize: vertical;
+  max-height: 100px;
   border: 1px solid rgb(32, 33, 34);
-  border-radius: 25px 0px 0px 25px;
+  border-radius: 25px;
   padding: 0px 10px;
+  margin-bottom: 10px;
+}
+#CreadorDePosts > input[type="file"] {
+  border: 1px solid rgb(32, 33, 34);
+  border-radius: 25px;
+  margin-bottom: 10px;
 }
 #CreadorDePosts > button {
   border: 1px solid rgb(27, 176, 115);
-  border-radius: 0px 25px 25px 0px;
-  padding: 0px 10px;
+  border-radius: 25px;
+  margin-bottom: 10px;
 }
 #CreadorDePosts > .btn-middle {
   border-radius: 0px;
 }
- 
+
+#PublishCtrl {
+  display: none;
+}
