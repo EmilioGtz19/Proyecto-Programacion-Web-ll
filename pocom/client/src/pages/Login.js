@@ -77,7 +77,8 @@ function Login() {
             Ingresar
           </Button>
         </Form>
-        <Button className="mt-3 shadow-sm" variant="success" type="submit">
+
+        <Button className="mt-3 shadow-sm" variant="success" type="button" href='/signup'>
           Registrar
         </Button>
       </div>

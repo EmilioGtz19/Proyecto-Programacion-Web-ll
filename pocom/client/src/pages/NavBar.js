@@ -57,8 +57,8 @@ const NavBar = () => {
         <div className="flex-container flex-item-center">
           <img
             className="Nav-Userimg"
-            src={require("../images/pocomDefUser.jpg")}
-            alt="..."
+            src={localStorage.getItem('user_photo')}
+            alt="user"
           ></img>
           <p className="white-text">🢓</p>
         </div>

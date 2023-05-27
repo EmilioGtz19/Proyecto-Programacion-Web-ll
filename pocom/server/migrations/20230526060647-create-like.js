@@ -2,39 +2,29 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('posts', {
+    await queryInterface.createTable('likes', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      title: {
-        allowNull: false,
-        type: Sequelize.STRING
-      },
-      content: {
-        allowNull: false,
-        type: Sequelize.STRING
-      },
-      photo: {
-        allowNull: true,
-        type: Sequelize.STRING
-      },
-      community_id: {
-        type: Sequelize.INTEGER,
-        references: {
-          model: 'communities',
-          key: 'id'
-        }
-      },
       user_id: {
-        allowNull: false,
         type: Sequelize.INTEGER,
         references: {
           model: 'users',
           key: 'id'
         }
+      },
+      post_id: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'posts',
+          key: 'id'
+        }
+      },
+      status: {
+        type: Sequelize.TINYINT
       },
       createdAt: {
         allowNull: false,
@@ -47,6 +37,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('posts');
+    await queryInterface.dropTable('likes');
   }
 };

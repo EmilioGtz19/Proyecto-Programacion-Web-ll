@@ -6,6 +6,9 @@ const bodyParser = require("body-parser");
 const userRoutes = require('./routes/user_routes');
 const communityRoutes = require('./routes/community_routes');
 const communityUserRoutes = require('./routes/community_user_routes');
+const likesRoutes = require('./routes/likes_routes');
+const postRoutes = require('./routes/posts_routes')
+
 const app = express()
 const PORT = process.env.PORT || 3001
 
@@ -36,6 +39,8 @@ app.use(session({
 app.use('/api', userRoutes);
 app.use('/api', communityRoutes);
 app.use('/api', communityUserRoutes);
+app.use('/api', likesRoutes);
+app.use('/api', postRoutes)
 
 app.listen(PORT, ()=> {
     console.log(`Server listening on ${PORT}`)
