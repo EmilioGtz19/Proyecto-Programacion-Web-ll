@@ -93,6 +93,7 @@ module.exports = {
     },
 
     async getCommunitiesByUser(request, response) {
+
         try {
 
             const { id } = request.params;
@@ -120,6 +121,7 @@ module.exports = {
             })
         }
     },
+
 
     async logicalDelete(request, response) {
         try {

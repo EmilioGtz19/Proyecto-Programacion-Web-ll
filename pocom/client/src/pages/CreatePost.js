@@ -127,7 +127,6 @@ const CreatePost = (props) => {
         </button>
       </div>
 
-
       <Form onSubmit={handleSubmit}>
         <div
           id="PublishCtrl"
@@ -158,6 +157,7 @@ const CreatePost = (props) => {
 function PublishPost() {
   let Publish = document.getElementById("Publish");
   let PublishCtrl = document.getElementById("PublishCtrl");
+
   if (PublishCtrl.style.display === "none") {
     PublishCtrl.style.display = "block";
   } else {

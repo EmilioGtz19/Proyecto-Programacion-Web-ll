@@ -8,6 +8,7 @@ const communityRoutes = require('./routes/community_routes');
 const communityUserRoutes = require('./routes/community_user_routes');
 const likesRoutes = require('./routes/likes_routes');
 const postRoutes = require('./routes/posts_routes')
+
 const app = express()
 const PORT = process.env.PORT || 3001
 
