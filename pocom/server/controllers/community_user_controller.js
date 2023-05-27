@@ -7,6 +7,9 @@ module.exports = {
       const { id, communityId } = request.params;
 
       const [follow, created] = await communityUser.findOrCreate({
+        attributes:[
+          'user_id'
+        ],
         where: {
           user_id: id,
           community_id: communityId
@@ -29,6 +32,9 @@ module.exports = {
       const { id, communityId } = request.params;
 
       const foundFollow = await communityUser.findOne({
+        attributes:[
+          'user_id'
+        ],
         where: {
           user_id: id,
           community_id: communityId

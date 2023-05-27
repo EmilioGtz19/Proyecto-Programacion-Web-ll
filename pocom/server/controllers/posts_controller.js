@@ -1,5 +1,8 @@
+const community_user = require('../models/community_user');
+
 const posts = require('../models').posts;
 const user = require('../models').user;
+const communityUser = require('../models').community_user
 const community = require('../models').community;
 
 module.exports = {
@@ -149,6 +152,84 @@ module.exports = {
                 message: 'Error getting posts',
                 error: error.message
             })
+        }
+    },
+
+    async getPostsByUsersFollows(request, response) {
+        try {
+
+            const { userId } = request.params
+
+            const foundFollows = await communityUser.findAll({
+                attributes: [
+                    'user_id',
+                    'community_id'
+                ],
+                include: [
+                    {
+                        model: community,
+                        as: 'FK_community_user_community',
+                        attributes: [
+                            'id',
+                            'community_name',
+                            'community_photo'
+                        ]
+                    },
+                    {
+                        model: user,
+                        as: 'FK_community_user_user_type',
+                        attributes: [
+                            'id',
+                            'user_photo',
+                            'first_name'
+                        ]
+                    }
+                ],
+                where: {
+                    user_id: userId
+                }
+            });
+
+            const foundPosts = await posts.findAll({
+                attributes: [
+                    'id',
+                    'title',
+                    'content',
+                    'photo',
+                    'community_id',
+                    'user_id',
+                    'createdAt'
+                ]
+            })
+
+            const communityIds = foundFollows.map((follow) => follow.FK_community_user_community.id);
+
+            // Filtrar los foundPosts por community_id
+            const filteredPosts = foundPosts
+                .filter((post) => communityIds.includes(post.community_id))
+                .map((post) => {
+                    const community = foundFollows.find((follow) => follow.FK_community_user_community.id === post.community_id);
+                    const user = foundFollows.find((follow) => follow.FK_community_user_user_type.id === post.user_id);
+
+                    return {
+                        ...post,
+                        community_info: {
+                            id: community.FK_community_user_community.id,
+                            community_name: community.FK_community_user_community.community_name,
+                            community_photo: community.FK_community_user_community.community_photo
+                        },
+                        user_info: {
+                            id: user.FK_community_user_user_type.id,
+                            user_photo: user.FK_community_user_user_type.user_photo,
+                            first_name: user.FK_community_user_user_type.first_name
+                        }
+                    };
+                });
+
+            response.status(200).json(filteredPosts);
+
+        } catch (error) {
+            console.log(error.message);
         }
     }
 }

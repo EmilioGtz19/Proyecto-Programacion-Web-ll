@@ -17,6 +17,7 @@ module.exports = (sequelize, DataTypes) => {
           foreignKey: 'user_id'
         }
       )
+      
     }
   }
   community.init({
