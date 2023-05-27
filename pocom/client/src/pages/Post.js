@@ -24,11 +24,11 @@ const Post = (props) => {
 
   return (
 
-    <div>
+    <div className="flex-container flex-column post-container white-text no-top-padding" >
       {postsData.length > 0 ? (
         postsData.map((post) => (
           <div
-            className="flex-container flex-column post-container white-text no-top-padding" /*Contenedor del contenido*/
+            /*Contenedor del contenido*/
             key={post.id}
           >
 
