@@ -3,9 +3,12 @@ import ReactDom from 'react-dom'
 import { useState, useEffect } from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Form from 'react-bootstrap/Form';
-import { swalAlert } from '../utils/alerts';
 import Button from 'react-bootstrap/Button';
 import { useRef } from "react";
+import { swalAlert } from "../utils/alerts";
+
+const apiUrl = process.env.REACT_APP_API_URL;
+const apiImage = process.env.REACT_APP_API_IMAGES_URL;
 
 const MODAL_STYLES = {
     position: 'fixed',
@@ -27,56 +30,201 @@ const OVERLAY_STYLES = {
     zIndex: 1000
 }
 
-export default function Modal({ open, children, onClose }) {
-    const [selectedImage, setSelectedImage] = useState();
+export default function Modal({ open, children, onClose, id, data }) {
+
+    const [selectedImage, setSelectedImage] = useState(null);
+    const [imageUrl, setImageUrl] = useState();
     const [error, setError] = useState(false);
-    const [emptyImage, setEmptyImage] = useState(false);
     const [communityName, setCommunityName] = useState('');
     const [communityDescription, setCommunityDescription] = useState('');
-    //const [typeSubmit, setTypeSubmit] = useState('');
+    const myForm = useRef();
+
+    useEffect(() => {
+        if (data.name) {
+            setCommunityName(data.name);
+        }
+        if (data.desc) {
+            setCommunityDescription(data.desc);
+        }
+        if (data.photo) {
+            setImageUrl(data.photo);
+        }
+        setError(false);
+
+    }, [open, data]);
 
     const imageChange = (e) => {
         if (e.target.files && e.target.files.length > 0) {
             setSelectedImage(e.target.files[0]);
-            setEmptyImage(false);
+            setImageUrl(URL.createObjectURL(e.target.files[0]));
         }
     };
 
-    const myForm = useRef();
-
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log(myForm.current.buttonId);
 
-        if(myForm.current.buttonId === 'save'){
+        if (myForm.current.buttonId === 'save') {
             if (communityName.length === 0 || communityDescription.length === 0) {
                 setError(true);
             }
-    
+
             if (communityName && communityDescription) {
-                alert('se actualiza');
+
+                const responseUpdate = await updateCommunity();
+                const communityData = await responseUpdate.json();
+
+                if (responseUpdate.ok) {
+
+                    if (selectedImage) {
+
+                        const responseImage = await uploadPhoto();
+
+                        if (responseImage.ok) {
+                            const file = await responseImage.json();
+
+                            const responseUpdatePhoto = await updateCommunityPhoto(file.secure_url);
+
+                            if (responseUpdatePhoto.ok) {
+
+                                swalAlert("Comunidad creada", "La comunidad se ha creado satisfactoriamente.", "success").then(() => {
+                                    window.location.href = "/ManageCommunities";
+                                });
+
+                            } else {
+                                swalAlert("Error", "Ha ocurrido un error al subir la imagen", "error")
+                            }
+                        }
+                    } else {
+                        swalAlert("Comunidad creada", "La comunidad se ha creado satisfactoriamente.", "success").then(() => {
+                            window.location.href = "/ManageCommunities";
+                        });
+                    }
+
+                } else {
+                    switch (communityData.name) {
+                        case "SequelizeUniqueConstraintError":
+                            swalAlert("Error", "El nombre de la comunidad ya se encuentra registrado.", "error");
+                            break;
+                        case "SequelizeConnectionRefusedError":
+                            swalAlert("Error", "Ha ocurrido un error en el servidor.", "error");
+                            break;
+                        default:
+                            swalAlert("Error", "Ha ocurrido un error al crear la comunidad.", "error");
+                            break;
+                    }
+                }
+
+
+
                 onClose(true);
-    
-                setCommunityName('');
-                setCommunityDescription('');
-                setError(false);
+
             }
         }
-        
-        if(myForm.current.buttonId === 'delete'){
 
-            alert('se elimina');
+        if (myForm.current.buttonId === 'delete') {
+
+            const responseDelete = await deleteCommunity()
+            const deleteData = await responseDelete.json();
+
+            if (responseDelete.ok) {
+
+                swalAlert("Comunidad eliminada", "La comunidad se ha eliminado satisfactoriamente.", "success").then(() => {
+                    window.location.href = "/ManageCommunities";
+                });
+
+            } else {
+                switch (deleteData.name) {
+                    case "SequelizeConnectionRefusedError":
+                        swalAlert("Error", "Ha ocurrido un error en el servidor.", "error");
+                        break;
+                    default:
+                        swalAlert("Error", "Ha ocurrido un error al eliminar la comunidad.", "error");
+                        break;
+                }
+            }
+
             onClose(true);
-    
             setCommunityName('');
             setCommunityDescription('');
             setError(false);
         }
+
     }
 
-    function closeModal(){
+    function closeModal() {
         onClose(true);
     }
+
+    async function updateCommunity() {
+        try {
+            const response = await fetch(`${apiUrl}/api/community/update/${id}`, {
+                method: "PUT",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    community_name: communityName,
+                    community_description: communityDescription,
+                })
+            })
+
+            return response;
+
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    async function uploadPhoto() {
+        try {
+
+            const data = new FormData();
+            data.append("file", selectedImage)
+            data.append("upload_preset", "vy7khmyb")
+
+            const response = await fetch(`${apiImage}/image/upload`, {
+                method: "POST",
+                body: data,
+            })
+
+            return response;
+
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    async function updateCommunityPhoto(file) {
+        try {
+
+            const response = await fetch(`${apiUrl}/api/community/update/${id}`, {
+                method: "PUT",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    community_photo: file,
+                })
+            });
+
+            return response;
+
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    async function deleteCommunity() {
+        try {
+
+            const response = await fetch(`${apiUrl}/api/community/logicalDelete/${id}`, {
+                method: "PUT",
+                headers: { "Content-Type": "application/json" }
+            })
+
+            return response;
+
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
 
     if (!open) return null
 
@@ -96,27 +244,25 @@ export default function Modal({ open, children, onClose }) {
 
                     <div className="d-flex justify-content-center">
                         <div className=" borderPicture">
-                            {selectedImage && (
-                                <img src={URL.createObjectURL(selectedImage)} className="imageDimensions" alt="User" />
+                            {imageUrl && (
+                                <img src={imageUrl} className="imageDimensions" alt="User" />
                             )}
                         </div>
                     </div>
-                    {emptyImage ?
-                        <Form.Label className="text-danger">La imagen no puede estar vacía</Form.Label> : ""}
 
                     <input type="file" className="form-control mt-2" accept="image/*" onChange={imageChange} />
 
 
                     <Form.Group className="mb-2 mt-2">
                         <Form.Label className="fw-semibold">Nombre de la comunidad</Form.Label>
-                        <Form.Control className="shadow-sm border border-success border-2" type="text" onChange={(e) => { setCommunityName(e.target.value) }} />
+                        <Form.Control className="shadow-sm border border-success border-2" type="text" onChange={(e) => { setCommunityName(e.target.value) }} value={communityName} />
                         {error && communityName.length <= 0 ?
                             <Form.Label className="text-danger">El nombre no puede estar vacío</Form.Label> : ""}
                     </Form.Group>
 
                     <Form.Group className="mb-2">
                         <Form.Label className="fw-semibold">Descripción breve</Form.Label>
-                        <Form.Control className="shadow-sm border border-success border-2" type="text" onChange={(e) => { setCommunityDescription(e.target.value) }} />
+                        <Form.Control className="shadow-sm border border-success border-2" type="text" onChange={(e) => { setCommunityDescription(e.target.value) }} value={communityDescription} />
                         {error && communityDescription.length <= 0 ?
                             <Form.Label className="text-danger">La descripción no puede estar vacía</Form.Label> : ""}
                     </Form.Group>

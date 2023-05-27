@@ -4,6 +4,11 @@ import "../styles/Flexbox.css";
 import "../styles/Posts.css";
 
 const Post = () => {
+  {
+    /*   const [likedislikeCtrl, setlikedislikeCtrl] = useState(0);
+     */
+  }
+
   return (
     <div
       className="flex-container flex-column post-container white-text no-top-padding" /*Contenedor del contenido*/
@@ -43,12 +48,52 @@ const Post = () => {
         </div>
       </div>
       <div className="top-margin" /*Botones de mas acciones*/>
-        <button className="white-text">Like</button>
-        <button className="white-text horizontal-spacing">Dislike</button>
+        <button id="Like" className="white-text" onClick={LikeonClick}>
+          Like
+        </button>
+        <button
+          id="DisLike"
+          className="white-text horizontal-spacing"
+          onClick={DislikeonClick}
+        >
+          Dislike
+        </button>
         <button className="white-text">Comentarios</button>
       </div>
     </div>
   );
 };
+
+function LikeonClick() {
+  let Like = document.getElementById("Like");
+  let DisLike = document.getElementById("DisLike");
+
+  if (Like.classList.contains("invertbtn")) {
+    console.log("Like no se esta invertodo");
+    Like.classList.remove("invertbtn");
+  } else {
+    console.log("Like se esta invertodo");
+    Like.classList.add("invertbtn");
+    if (DisLike.classList.contains("invertbtn")) {
+      DisLike.classList.remove("invertbtn");
+    }
+  }
+}
+
+function DislikeonClick() {
+  let Like = document.getElementById("Like");
+  let DisLike = document.getElementById("DisLike");
+
+  if (DisLike.classList.contains("invertbtn")) {
+    console.log("Like no se esta invertodo");
+    DisLike.classList.remove("invertbtn");
+  } else {
+    console.log("Like se esta invertodo");
+    DisLike.classList.add("invertbtn");
+    if (Like.classList.contains("invertbtn")) {
+      Like.classList.remove("invertbtn");
+    }
+  }
+}
 
 export default Post;

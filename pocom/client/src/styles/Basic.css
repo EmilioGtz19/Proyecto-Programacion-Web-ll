@@ -70,3 +70,14 @@
 .half-width {
   width: 50%;
 }
+.quarter-width {
+  width: 25%;
+}
+.down-nav {
+  margin-top: 40px;
+}
+
+.y-resize {
+  height: 45em;
+  overflow-y: auto;
+}

@@ -63,10 +63,7 @@ module.exports = {
             });
 
         } catch (error) {
-            return response.status(400).json({
-                message: 'Error during update',
-                error: error.message
-            })
+            return response.status(400).send(error)
         }
     },
     
@@ -92,6 +89,64 @@ module.exports = {
                 message: 'Error getting communities',
                 error: error.message
             })
+        }
+    },
+
+    async getCommunitiesByUser(request, response) {
+        try{
+
+            const { id } = request.params;
+
+            const foundCommunities = await community.findAll({
+                where: {
+                    user_id: id,
+                    status : 1
+                },
+                attributes: [
+                    'id',
+                    'community_name',
+                    'community_description',
+                    'community_photo'
+                ]
+            })
+
+
+            response.status(200).json(foundCommunities);
+
+        }catch(error){
+            return response.status(400).json({
+                message: 'Error getting communities',
+                error: error.message
+            })
+        }
+    },
+
+    async logicalDelete(request, response){
+        try {
+            const { id } = request.params;
+
+            const foundCommunity = await community.findOne({
+                where: {
+                    id: id
+                }
+            });
+
+            if (!foundCommunity) {
+                return response.status(404).json({
+                    message: 'Community not found'
+                });
+            }
+
+            foundCommunity.status = 0;
+
+            await foundCommunity.save();
+
+            return response.status(200).json({
+                message: 'Community deleted successfully'
+            });
+
+        } catch (error) {
+            response.status(400).send(error);
         }
     }
 }

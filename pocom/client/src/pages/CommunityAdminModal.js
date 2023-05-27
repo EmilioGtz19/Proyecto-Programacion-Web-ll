@@ -19,11 +19,11 @@ const ComAdModal = () => {
   );
 };
 
+/*
 const editModal = () => {
   return (
     <div id="modal-edit-container" className="modal-container Edit">
       <div className="modal-content no-top-padding">
-        {/* comunidades */}
         <div className="top-margin flex-container flex-column">
           <h1>texto</h1>
           <input type="text"></input>
@@ -31,6 +31,6 @@ const editModal = () => {
       </div>
     </div>
   );
-};
+};*/
 
 export default ComAdModal;
