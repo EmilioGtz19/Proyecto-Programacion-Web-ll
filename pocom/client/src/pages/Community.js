@@ -70,7 +70,7 @@ const Community = (props) => {
   return (
     <div className="flex-container flex-column gap center">
       <NavBar></NavBar>
-
+      <div className="down-Nav"></div>
       {/*Community Page info*/}
 
       <div className="flex-container flex-column community-container white-text no-top-padding down-nav">
@@ -102,7 +102,5 @@ const Community = (props) => {
     </div>
   );
 };
-
-
 
 export default Community;

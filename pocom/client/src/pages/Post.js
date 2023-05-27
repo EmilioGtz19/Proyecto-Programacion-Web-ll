@@ -4,6 +4,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "../styles/Flexbox.css";
 import "../styles/Posts.css";
 
+
 const Post = (props) => {
 
   const apiUrl = process.env.REACT_APP_API_URL;
@@ -19,8 +20,6 @@ const Post = (props) => {
         setPostsData(data);
       });
   }, [apiUrl, props.community_id]);
-
-
 
   return (
 
@@ -84,7 +83,23 @@ const Post = (props) => {
         <div>
           <h4 className="title">No hay posts creados</h4>
         </div>
+      </div>
+      <div className="top-margin" /*Botones de mas acciones*/>
+        <button id="Like" className="white-text" onClick={LikeonClick}>
+          Like
+        </button>
+        <button
+          id="DisLike"
+          className="white-text horizontal-spacing"
+          onClick={DislikeonClick}
+        >
+          Dislike
+        </button>
+        <button className="white-text">Comentarios</button>
+      </div>
+
       )}
+
     </div>
 
   );

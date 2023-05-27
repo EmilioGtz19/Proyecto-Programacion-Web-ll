@@ -1,6 +1,7 @@
 const communityUser = require('../models').community_user;
 
 module.exports = {
+
   async followOrUnfollowCommunity(request, response) {
     try {
       const { id, communityId } = request.params;
@@ -44,4 +45,5 @@ module.exports = {
       response.status(400).send(error);
     }
   }
+
 }
