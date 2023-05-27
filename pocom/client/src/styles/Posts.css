@@ -2,6 +2,11 @@
 
 .post-container {
   background-color: rgba(49, 52, 54, 0.8);
+  border-radius: 5px;
+  padding: 2%;
+}
+.post-creator {
+  background-color: rgba(49, 52, 54, 0.8);
   width: 50%;
   border-radius: 5px;
   padding: 2%;

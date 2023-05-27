@@ -52,11 +52,12 @@ const Post = (props) => {
   };
 
   return (
-    <div className="flex-container flex-column post-container white-text no-top-padding">
+    <div className="flex-container flex-column half-width">
       {postsData.length > 0 ? (
         postsData.map((post) => (
           <div
             /*Contenedor del contenido*/
+            className="post-container white-text no-top-padding bottom-margin"
             key={post.id}
           >
             {/* community */}

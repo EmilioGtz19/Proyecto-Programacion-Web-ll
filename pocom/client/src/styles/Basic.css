@@ -27,6 +27,9 @@
 .top-margin-5 {
   margin-top: 5%;
 }
+.bottom-margin {
+  margin-bottom: 2%;
+}
 
 .y-margin {
   margin-top: 2%;
@@ -81,4 +84,3 @@
   height: 45em;
   overflow-y: auto;
 }
-

@@ -7,22 +7,9 @@ body {
   -moz-osx-font-smoothing: grayscale;
   background-image: url("/src/images/pocomSignup.png");
   background-size: cover;
-  background-repeat: no-repeat;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
-}
-
-@keyframes flip {
-  0% {
-    transform: scaleY(1);
-  }
-  50% {
-    transform: scaleY(-1);
-  }
-  100% {
-    transform: scaleY(1);
-  }
 }
