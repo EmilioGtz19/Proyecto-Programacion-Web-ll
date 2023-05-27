@@ -15,6 +15,10 @@ const CreatePost = (props) => {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
 
+  const titleRef = React.useRef(null);
+  const contentRef = React.useRef(null);
+  const imageRef = React.useRef(null);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (title.length === 0 || content.length === 0) {
@@ -36,6 +40,10 @@ const CreatePost = (props) => {
       }
 
       swalAlert("Post creado", "El post se ha creado con exito", "success");
+
+      titleRef.current.value = ''
+      contentRef.current.value = ''
+      imageRef.current.value = null
 
     } else {
       swalAlert("Error", "Ha ocurrido un error al crear el post", "error");
@@ -130,13 +138,13 @@ const CreatePost = (props) => {
             id="CreadorDePosts"
             className="flex-container flex-column full-width"
           >
-            <Form.Control type="text" placeholder="Titulo del Post" onChange={e => setTitle(e.target.value)}></Form.Control>
-            <Form.Control type="text" placeholder="Contenido del Post" onChange={e => setContent(e.target.value)}></Form.Control>
+            <Form.Control type="text" placeholder="Titulo del Post" ref={titleRef} onChange={e => setTitle(e.target.value)}></Form.Control>
+            <Form.Control type="text" placeholder="Contenido del Post" ref={contentRef} onChange={e => setContent(e.target.value)}></Form.Control>
             <div
               id="CreadorDePosts"
               className="flex-container flex-content-space-bt full-width"
             >
-              <input type="file" className="form-control mt-3" accept="image/*" onChange={imageChange} />
+              <input type="file" ref={imageRef} className="form-control mt-3" accept="image/*" onChange={imageChange} />
               <button className="white-text" type="submit"> publish</button>
             </div>
           </div>

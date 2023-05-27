@@ -97,7 +97,8 @@ const Community = (props) => {
       </div>
 
       <CreatePost user_id={props.user.id} community_id={communityData.id}></CreatePost>
-      <Post></Post>
+      <Post community_id={communityData.id}></Post>
+
     </div>
   );
 };

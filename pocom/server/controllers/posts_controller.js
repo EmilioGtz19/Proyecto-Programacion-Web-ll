@@ -111,6 +111,7 @@ module.exports = {
                     'title',
                     'content',
                     'photo',
+                    'createdAt',
                     'community_id',
                     'user_id'
                 ],
