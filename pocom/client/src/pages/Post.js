@@ -82,28 +82,29 @@ const Post = (props) => {
       ) : (
         <div>
           <h4 className="title">No hay posts creados</h4>
+
+
+          <div className="top-margin" /*Botones de mas acciones*/>
+            <button id="Like" className="white-text" onClick={LikeonClick}>
+              Like
+            </button>
+            <button
+              id="DisLike"
+              className="white-text horizontal-spacing"
+              onClick={DislikeonClick}
+            >
+              Dislike
+            </button>
+            <button className="white-text">Comentarios</button>
+          </div>
+
+
         </div>
-      </div>
-      <div className="top-margin" /*Botones de mas acciones*/>
-        <button id="Like" className="white-text" onClick={LikeonClick}>
-          Like
-        </button>
-        <button
-          id="DisLike"
-          className="white-text horizontal-spacing"
-          onClick={DislikeonClick}
-        >
-          Dislike
-        </button>
-        <button className="white-text">Comentarios</button>
-      </div>
-
-      )}
-
+      )
+      }
     </div>
-
-  );
-};
+  )
+}
 
 function LikeonClick() {
   let Like = document.getElementById("Like");
