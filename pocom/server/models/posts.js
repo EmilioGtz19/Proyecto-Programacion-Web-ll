@@ -43,7 +43,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING
     },
     photo:{
-      allowNull: false,
+      allowNull: true,
       type: DataTypes.STRING
     },
     community_id:{
