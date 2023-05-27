@@ -5,7 +5,6 @@ import "../styles/Flexbox.css";
 import "../styles/Posts.css";
 
 const Post = (props) => {
-
   const apiUrl = process.env.REACT_APP_API_URL;
   const [postsData, setPostsData] = useState([]);
 
@@ -14,34 +13,62 @@ const Post = (props) => {
       method: "GET",
       headers: { "Content-Type": "application/json" },
     })
-      .then(response => response.json())
-      .then(data => {
+      .then((response) => response.json())
+      .then((data) => {
         setPostsData(data);
       });
   }, [apiUrl, props.community_id]);
 
+  const LikeonClick = (id) => {
+    let Like = document.getElementById("Like-" + id);
+    let DisLike = document.getElementById("DisLike-" + id);
 
+    console.log("Like en post id:", id);
+
+    if (Like.classList.contains("invertbtn")) {
+      Like.classList.remove("invertbtn");
+    } else {
+      Like.classList.add("invertbtn");
+      if (DisLike.classList.contains("invertbtn")) {
+        DisLike.classList.remove("invertbtn");
+      }
+    }
+  };
+
+  const DislikeonClick = (id) => {
+    let Like = document.getElementById("Like-" + id);
+    let DisLike = document.getElementById("DisLike-" + id);
+
+    console.log("DisLike en post id:", id);
+
+    if (DisLike.classList.contains("invertbtn")) {
+      DisLike.classList.remove("invertbtn");
+    } else {
+      DisLike.classList.add("invertbtn");
+      if (Like.classList.contains("invertbtn")) {
+        Like.classList.remove("invertbtn");
+      }
+    }
+  };
 
   return (
-
-    <div className="flex-container flex-column post-container white-text no-top-padding" >
+    <div className="flex-container flex-column post-container white-text no-top-padding">
       {postsData.length > 0 ? (
         postsData.map((post) => (
           <div
             /*Contenedor del contenido*/
             key={post.id}
           >
-
             {/* community */}
             <div
               className="flex-container flex-content-start top-margin"
-            /*Contenedor de la informacion de la comunidad*/
+              /*Contenedor de la informacion de la comunidad*/
             >
               <img
                 className="post-Userimg "
-          /*Imagen de la comunidad*/ src={post.FK_post_user.user_photo}
+                /*Imagen de la comunidad*/ src={post.FK_post_user.user_photo}
                 alt="..."
-              /*alt="Imagen de la comunidad"*/
+                /*alt="Imagen de la comunidad"*/
               ></img>
               <p className="flex-container flex-column horizontal-spacing bold-text">
                 {post.FK_post_community.community_name}
@@ -66,18 +93,21 @@ const Post = (props) => {
               </div>
             </div>
             <div className="top-margin" /*Botones de mas acciones*/>
-              <button id="Like" className="white-text" onClick={LikeonClick}>
+              <button
+                id={"Like-" + post.id}
+                className="white-text"
+                onClick={() => LikeonClick(post.id)}
+              >
                 Like
               </button>
               <button
-                id="DisLike"
+                id={"DisLike-" + post.id}
                 className="white-text horizontal-spacing"
-                onClick={DislikeonClick}
+                onClick={() => DislikeonClick(post.id)}
               >
                 Dislike
               </button>
             </div>
-
           </div>
         ))
       ) : (
@@ -86,40 +116,7 @@ const Post = (props) => {
         </div>
       )}
     </div>
-
   );
 };
-
-function LikeonClick() {
-  let Like = document.getElementById("Like");
-  let DisLike = document.getElementById("DisLike");
-
-  if (Like.classList.contains("invertbtn")) {
-    console.log("Like no se esta invertodo");
-    Like.classList.remove("invertbtn");
-  } else {
-    console.log("Like se esta invertodo");
-    Like.classList.add("invertbtn");
-    if (DisLike.classList.contains("invertbtn")) {
-      DisLike.classList.remove("invertbtn");
-    }
-  }
-}
-
-function DislikeonClick() {
-  let Like = document.getElementById("Like");
-  let DisLike = document.getElementById("DisLike");
-
-  if (DisLike.classList.contains("invertbtn")) {
-    console.log("Like no se esta invertodo");
-    DisLike.classList.remove("invertbtn");
-  } else {
-    console.log("Like se esta invertodo");
-    DisLike.classList.add("invertbtn");
-    if (Like.classList.contains("invertbtn")) {
-      Like.classList.remove("invertbtn");
-    }
-  }
-}
 
 export default Post;
